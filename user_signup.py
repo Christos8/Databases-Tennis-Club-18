@@ -5,7 +5,7 @@ class SignUp:
     def check_username(self):
         # placeholder for the actual username check logic
         if (self.username == "giorgis"):
-            print("Username already exists. Please try again.")
+            print("!Username already exists. Please try again.!")
             return False
         return True
 

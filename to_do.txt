@@ -1,3 +1,7 @@
 - connect db
 - make coach login
 - create signup logic (hashes,db queries)
+
+
+
+- sto subscription na allazei to status analoga to date

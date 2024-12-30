@@ -9,7 +9,7 @@ class LoginMenu:
         self.handle_choice(choice)
 
     def display(self):
-        print("Welcome to our tennis club! Please choose what you want to do:")
+        print("\nWelcome to our tennis club! Please choose what you want to do:")
         for i, option in enumerate(self.options, 1):
             print(f"{i}. {option}")
 
@@ -20,9 +20,9 @@ class LoginMenu:
                 if 1 <= choice <= len(self.options):
                     return choice
                 else:
-                    print("Invalid choice. Please try again.")
+                    print("!Invalid choice. Please try again.!")
             except ValueError:
-                print("Invalid input. Please enter a number.")
+                print("!Invalid input. Please enter a number.!")
 
     def handle_choice(self, choice):
         match choice:
@@ -43,7 +43,8 @@ class LoginMenu:
         if user_login.login():
             print("Welcome to the tennis club!")
         else:
-            print("Invalid username or password. Please try again.")
+            print("!Invalid username or password. Please try again.!")
+            LoginMenu()
     
     def register(self):
         username = input("Enter your username: ")
