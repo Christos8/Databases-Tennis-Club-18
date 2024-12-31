@@ -2,6 +2,7 @@
 class Field_in:
     def __init__(
         self,
+        
         id = None,
         type = None,
         status = None

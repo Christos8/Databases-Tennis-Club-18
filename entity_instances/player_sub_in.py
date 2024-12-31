@@ -1,5 +1,5 @@
 
-class PLAYER_SUBSCRIPTION_IN:
+class PlayerSubscriptionIn:
     def __init__(
         self,
         playerID = None,

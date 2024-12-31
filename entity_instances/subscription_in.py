@@ -1,6 +1,6 @@
 from datetime import date
 
-class SUBSCRIPTION_IN:
+class SubscriptionIn:
     def __init__(
         self,
         id	= None,

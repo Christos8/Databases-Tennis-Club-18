@@ -1,4 +1,4 @@
-class TOURNAMENT_IN:
+class TournamentIn:
     def __init__(
         self,
         id	= None,

@@ -4,7 +4,7 @@ Faker.seed(1234)
 fake = Faker(locale="el_GR")
 
 
-class Equipment_in:
+class EquipmentIn:
     def __init__(
         self,
         id = None,
