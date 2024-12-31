@@ -1,5 +1,5 @@
 
-class TOURNAMENT_PAR_IN:
+class TournamentParIn:
     def __init__(
         self,
         PlayerID = None,

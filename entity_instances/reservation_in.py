@@ -1,5 +1,5 @@
 
-class RESERVATION_IN:
+class ReservationIn:
     def __init__(
         self,
         ID = None,

@@ -1,5 +1,5 @@
 
-class EQUIPMENT_RENTAL_IN:
+class EquipmentRentalIn:
     def __init__(
         self,
         PlayerID = None,

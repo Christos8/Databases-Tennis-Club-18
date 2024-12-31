@@ -1,13 +1,10 @@
-
-class FIELD_IN:
+class Fieldin:
     def __init__(
         self,
-        ID = None,
-        Type = None,
-        Status = None
+        ID=None,
+        Type=None,
+        Status=None
     ):
         self.ID = ID
-        self.Type = Type #Grass, Clay, Hard
-        self.Status = Status #Available, Reserved
-
-        
+        self.Type = Type  # Grass, Clay, Hard
+        self.Status = Status  # Available, Reserved

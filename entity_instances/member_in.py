@@ -1,7 +1,7 @@
 from datetime import timedelta
 import random
 
-class MEMBER_IN:
+class MemberIn:
 
     existing_ids = set()  # Track used IDs to avoid duplicates
 
@@ -19,10 +19,10 @@ class MEMBER_IN:
     ):
         
          # Generate unique ID
-        while not ID or ID in MEMBER_IN.existing_ids:
+        while not ID or ID in MemberIn.existing_ids:
             ID = random.randint(1, 1000)
         
-        MEMBER_IN.existing_ids.add(ID)
+        MemberIn.existing_ids.add(ID)
 
         self.ID = ID
         self.Name = Name
