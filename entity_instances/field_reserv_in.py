@@ -1,5 +1,5 @@
 
-class PlayerReservationIn:
+class FieldReservationIn:
     def __init__(
         self,
         fieldID = None,

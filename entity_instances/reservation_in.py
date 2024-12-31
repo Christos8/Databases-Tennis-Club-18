@@ -4,15 +4,15 @@ class ReservationIn:
         self,
         id = None,
         fieldID = None,
-        startDate = None,
-        endDate = None,
+        startTime = None,
+        endTime = None,
         lessonID = None,
         coachID = None
     ):
         self.id = id
         self.fieldID = fieldID
-        self.startDate = startDate
-        self.endDate = endDate
+        self.startTime = startTime
+        self.endTime = endTime
         self.lessonID = lessonID
         self.coachID = coachID
         
