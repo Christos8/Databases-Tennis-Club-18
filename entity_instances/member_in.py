@@ -19,10 +19,10 @@ class MemberIn:
     ):
         
          # Generate unique ID
-        while not id or id in Member_in.existing_ids:
+        while not id or id in MemberIn.existing_ids:
             id = random.randint(1, 1000)
         
-        Member_in.existing_ids.add(id)
+        MemberIn.existing_ids.add(id)
 
         self.id = id
         self.name = name
