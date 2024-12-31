@@ -4,18 +4,18 @@ Faker.seed(1234)
 fake = Faker(locale="el_GR")
 
 
-class EQUIPMENT_IN:
+class Equipment_in:
     def __init__(
         self,
-        ID = None,
-        Description = None,
-        CharacteristicCode = None,
-        Availability = None,
+        id = None,
+        description = None,
+        characteristicCode = None,
+        availability = None,
     ):
-        self.ID = ID
-        self.Description = Description
-        self.CharacteristicCode = CharacteristicCode
-        self.Availability = ( Availability
+        self.id = id
+        self.description = description
+        self.characteristicCode = characteristicCode
+        self.availability = ( availability
                              or fake.random_choices(
                                  elements=[
                                      "Available",

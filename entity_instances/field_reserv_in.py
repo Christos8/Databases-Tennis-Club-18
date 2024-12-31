@@ -1,10 +1,10 @@
 
-class PLAYER_RESERVATION_IN:
+class Player_reservation_in:
     def __init__(
         self,
-        FieldID = None,
-        ReservationID = None
+        fieldID = None,
+        reservationID = None
     ):
-        self.FieldID = FieldID
-        self.ReservationID = ReservationID
+        self.fieldID = fieldID
+        self.reservationID = reservationID
         

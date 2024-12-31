@@ -2,17 +2,17 @@
 class RESERVATION_IN:
     def __init__(
         self,
-        ID = None,
-        FieldID = None,
-        StartDate = None,
-        EndDate = None,
-        LessonID = None,
-        CoachID = None
+        id = None,
+        fieldID = None,
+        startDate = None,
+        endDate = None,
+        lessonID = None,
+        coachID = None
     ):
-        self.ID = ID
-        self.FieldID = FieldID
-        self.StartDate = StartDate
-        self.EndDate = EndDate
-        self.LessonID = LessonID
-        self.CoachID = CoachID
+        self.id = id
+        self.fieldID = fieldID
+        self.startDate = startDate
+        self.endDate = endDate
+        self.lessonID = lessonID
+        self.coachID = coachID
         

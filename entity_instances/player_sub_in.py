@@ -2,9 +2,9 @@
 class PLAYER_SUBSCRIPTION_IN:
     def __init__(
         self,
-        PlayerID = None,
-        SubscriptionID = None
+        playerID = None,
+        subscriptionID = None
     ):
-        self.PlayerID = PlayerID
-        self.SubscriptionID = SubscriptionID
+        self.playerID = playerID
+        self.subscriptionID = subscriptionID
         

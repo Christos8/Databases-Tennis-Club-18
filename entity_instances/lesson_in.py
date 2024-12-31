@@ -4,21 +4,21 @@ Faker.seed(1234)
 fake = Faker(locale="el_GR")
 
 
-class LESSON_IN:
+class Lesson_in:
     def __init__(
         self,
-        ID	= None,
-        Date = None,
-        StartTime = None,
-        EndTime = None,
-        Difficulty = None,
-        CoachID = None,
+        id	= None,
+        date = None,
+        startTime = None,
+        endTime = None,
+        difficulty = None,
+        coachID = None,
     ):
-        self.ID = ID
-        self.Date = Date
-        self.StartTime = StartTime
-        self.EndTime = EndTime
-        self.Difficulty = ( Difficulty
+        self.id = id
+        self.date = date
+        self.startTime = startTime
+        self.endTime = endTime
+        self.difficulty = ( difficulty
                              or fake.random_choices(
                                  elements=[
                                      "Amateur",
@@ -28,6 +28,6 @@ class LESSON_IN:
                                  length = 1,
                              ).pop()
         )
-        self.CoachID = CoachID
+        self.coachID = coachID
         
 

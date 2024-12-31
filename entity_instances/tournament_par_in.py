@@ -2,9 +2,9 @@
 class TOURNAMENT_PAR_IN:
     def __init__(
         self,
-        PlayerID = None,
-        TournamentID = None
+        playerID = None,
+        tournamentID = None
     ):
-        self.PlayerID = PlayerID
-        self.TournamentID = TournamentID
+        self.playerID = playerID
+        self.tournamentID = tournamentID
         

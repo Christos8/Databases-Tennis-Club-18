@@ -1,10 +1,10 @@
 
-class LESSON_PARTICIPATION_IN:
+class Lesson_participation_in:
     def __init__(
         self,
-        PlayerID = None,
-        LessonID = None
+        playerID = None,
+        lessonID = None
     ):
-        self.PlayerID = PlayerID
-        self.LessonID = LessonID
+        self.playerID = playerID
+        self.lessonID = lessonID
         

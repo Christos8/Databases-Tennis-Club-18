@@ -1,36 +1,36 @@
 from datetime import timedelta
 import random
 
-class MEMBER_IN:
+class Member_in:
 
     existing_ids = set()  # Track used IDs to avoid duplicates
 
     def __init__(
         self,
-        ID = None,
-        Name = None,
-        Surname = None,
-        Birthdate = None,
-        Phone = None,
-        Address = None,
-        Email = None,
-        Category = None,
-        Username = None,
+        id = None,
+        name = None,
+        surname = None,
+        birthdate = None,
+        phone = None,
+        address = None,
+        email = None,
+        category = None,
+        username = None,
     ):
         
          # Generate unique ID
-        while not ID or ID in MEMBER_IN.existing_ids:
-            ID = random.randint(1, 1000)
+        while not id or id in Member_in.existing_ids:
+            id = random.randint(1, 1000)
         
-        MEMBER_IN.existing_ids.add(ID)
+        Member_in.existing_ids.add(id)
 
-        self.ID = ID
-        self.Name = Name
-        self.Surname = Surname
-        self.Birthdate = Birthdate
-        self.Phone = Phone
-        self.Address = Address
-        self.Email = Email
-        self.Category = Category
-        self.Username = Username
+        self.id = id
+        self.name = name
+        self.surname = surname
+        self.birthdate = birthdate
+        self.phone = phone
+        self.address = address
+        self.email = email
+        self.category = category
+        self.username = username
 

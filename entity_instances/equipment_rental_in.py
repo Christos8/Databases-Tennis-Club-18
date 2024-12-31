@@ -1,12 +1,12 @@
 
-class EQUIPMENT_RENTAL_IN:
+class Equipment_rental_in:
     def __init__(
         self,
-        PlayerID = None,
-        EquipmentID	= None,
-        RentDate = None
+        playerID = None,
+        equipmentID	= None,
+        rentDate = None
     ):
-        self.PlayerID = PlayerID
-        self.EquipmentID = EquipmentID
-        self.RentDate = RentDate
+        self.playerID = playerID
+        self.equipmentID = equipmentID
+        self.rentDate = rentDate
         

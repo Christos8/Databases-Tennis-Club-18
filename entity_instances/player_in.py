@@ -1,6 +1,6 @@
 class PLAYER_IN:
-    def __init__(self, MemberID=None):
-        if not MemberID:
-            raise ValueError("Player must be associated with a Member ID")
+    def __init__(self, memberID=None):
+        if not memberID:
+            raise ValueError("Player must be associated with a member ID")
         
-        self.MemberID = MemberID
+        self.memberID = memberID

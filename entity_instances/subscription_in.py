@@ -3,28 +3,28 @@ from datetime import date
 class SUBSCRIPTION_IN:
     def __init__(
         self,
-        ID	= None,
-        StartDate = None,
-        EndDate = None,
-        Type = None,
-        Category = None,
-        Status = None,
+        id	= None,
+        startDate = None,
+        endDate = None,
+        type = None,
+        category = None,
+        status = None,
     ):
-        self.ID= ID
-        self.StartDate = StartDate
-        self.EndDate = EndDate
-        self.Type = Type
-        self.Category = Category
-        self.Status = Status or self.set_status()
+        self.id= id
+        self.startDate = startDate
+        self.endDate = endDate
+        self.type = type
+        self.category = category
+        self.status = status or self.set_status()
 
 
     def set_status(self):
         today = date.today()
         
-        if self.StartDate and self.EndDate:
-            if self.StartDate <= today <= self.EndDate:
+        if self.startDate and self.endDate:
+            if self.startDate <= today <= self.endDate:
                 return "Active"
-            elif today > self.EndDate:
+            elif today > self.endDate:
                 return "Upcoming"
             else:
                 return "Check the Dates again"
