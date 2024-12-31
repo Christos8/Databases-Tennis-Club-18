@@ -1,5 +1,5 @@
 
-class Lesson_participation_in:
+class LessonParticipationIn:
     def __init__(
         self,
         playerID = None,

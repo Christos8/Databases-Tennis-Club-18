@@ -1,7 +1,7 @@
 from datetime import timedelta
 import random
 
-class Member_in:
+class MemberIn:
 
     existing_ids = set()  # Track used IDs to avoid duplicates
 
