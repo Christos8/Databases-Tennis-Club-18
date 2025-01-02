@@ -1,21 +1,19 @@
-
-
 CREATE_USER_AUTH_TABLE = """
 CREATE TABLE IF NOT EXISTS USER_AUTH (
-	username    TEXT NOT NULL,
-    password    TEXT NOT NULL
+    username TEXT NOT NULL PRIMARY KEY,
+    password TEXT NOT NULL,
+    FOREIGN KEY (username) REFERENCES MEMBER(username)
 );
 """
 
-
 CREATE_MEMBER_TABLE = """
 CREATE TABLE IF NOT EXISTS MEMBER (
-	id	INTEGER NOT NULL PRIMARY KEY,
-	name	TEXT,
-	surname	TEXT,
- 	birthdate TEXT,
-	phone	REAL,
-    adress TEXT,
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT,
+    surname TEXT,
+    birthdate DATE,
+    phone TEXT,
+    address TEXT,
     email TEXT,
     category TEXT,
     username TEXT NOT NULL UNIQUE
@@ -24,109 +22,115 @@ CREATE TABLE IF NOT EXISTS MEMBER (
 
 CREATE_PLAYER_TABLE = """
 CREATE TABLE IF NOT EXISTS PLAYER (
-	memberID	INTEGER NOT NULL
+    memberid INTEGER NOT NULL,
+    FOREIGN KEY (memberid) REFERENCES MEMBER(id)
 );
 """
 
 CREATE_COACH_TABLE = """
 CREATE TABLE IF NOT EXISTS COACH (
-	memberID	INTEGER NOT NULL	
+    memberid INTEGER NOT NULL,
+    FOREIGN KEY (memberid) REFERENCES MEMBER(id)
 );
 """
 
 CREATE_TOURNAMENT_TABLE = """
 CREATE TABLE IF NOT EXISTS TOURNAMENT (
-	id	INTEGER NOT NULL PRIMARY KEY,
-    deadline TEXT,
+    id INTEGER NOT NULL PRIMARY KEY,
+    deadline DATE,
     fee REAL,
     prize REAL,
-    date TEXT,
-    sTime TEXT
+    date DATE,
+    sTime TIME
 );
 """
 
 CREATE_TOURNAMENT_PARTICIPATION_TABLE = """
 CREATE TABLE IF NOT EXISTS TOURNAMENT_PARTICIPATION (
-	playerID	INTEGER NOT NULL,
-    tournamentID	INTEGER NOT NULL,
-    PRIMARY KEY (playerID, tournamentID)
+    playerid INTEGER NOT NULL,
+    tournamentid INTEGER NOT NULL,
+    PRIMARY KEY (playerid, tournamentid),
+    FOREIGN KEY (playerid) REFERENCES PLAYER(memberid),
+    FOREIGN KEY (tournamentid) REFERENCES TOURNAMENT(id)
 );
 """
 
 CREATE_SUBSCRIPTION_TABLE = """
 CREATE TABLE IF NOT EXISTS SUBSCRIPTION (
-	id	INTEGER NOT NULL PRIMARY KEY,
-    startDate TEXT,
-    endDate TEXT,
+    id INTEGER NOT NULL PRIMARY KEY,
+    startdate DATE,
+    enddate DATE,
     type TEXT,
     category TEXT,
-    status TEXT
+    status BOOLEAN
 );
 """
 
 CREATE_PLAYER_SUBSCRIPTION_TABLE = """
 CREATE TABLE IF NOT EXISTS PLAYER_SUBSCRIPTION (
-    playerID INTEGER NOT NULL,
-    subscriptionID INTEGER NOT NULL,
-    PRIMARY KEY (playerID, subscriptionID)
+    playerid INTEGER NOT NULL,
+    subscriptionid INTEGER NOT NULL,
+    PRIMARY KEY (playerid, subscriptionid),
+    FOREIGN KEY (playerid) REFERENCES PLAYER(memberid),
+    FOREIGN KEY (subscriptionid) REFERENCES SUBSCRIPTION(id)
 );
 """
 
 CREATE_EQUIPMENT_TABLE = """
 CREATE TABLE IF NOT EXISTS EQUIPMENT (
-	id	INTEGER NOT NULL PRIMARY KEY,
+    id INTEGER NOT NULL PRIMARY KEY,
     description TEXT,
-    characteristicCode TEXT,
-    availability TEXT
+    characteristiccode TEXT,
+    availability BOOLEAN
 );
 """
+
 CREATE_EQUIPMENT_RENTAL_TABLE = """
 CREATE TABLE IF NOT EXISTS EQUIPMENT_RENTAL (
-    playerID INTEGER NOT NULL,
-    equipmentID INTEGER NOT NULL,
-    rentDate TEXT,
-    PRIMARY KEY (playerID, equipmentID)
+    playerid INTEGER NOT NULL,
+    equipmentid INTEGER NOT NULL,
+    rentdate DATE,
+    PRIMARY KEY (playerid, equipmentid),
+    FOREIGN KEY (playerid) REFERENCES PLAYER(memberid),
+    FOREIGN KEY (equipmentid) REFERENCES EQUIPMENT(id)
 );
 """
 
 CREATE_LESSON_TABLE = """
 CREATE TABLE IF NOT EXISTS LESSON (
-	id	INTEGER NOT NULL PRIMARY KEY,
-    date TEXT,
-    startTime TEXT,
-    endTime TEXT,
+    id INTEGER NOT NULL PRIMARY KEY,
+    date DATE,
+    starttime TIME,
+    endtime TIME,
     difficulty TEXT,
-    coachID INTEGER
+    coachid INTEGER,
+    FOREIGN KEY (coachid) REFERENCES COACH(memberid)
 );
 """
 
 CREATE_LESSON_PARTICIPATION_TABLE = """
 CREATE TABLE IF NOT EXISTS LESSON_PARTICIPATION (
-	playerID	INTEGER NOT NULL,
-    lessonID	INTEGER NOT NULL,
-    PRIMARY KEY (playerID, lessonID)
+    playerid INTEGER NOT NULL,
+    lessonid INTEGER NOT NULL,
+    PRIMARY KEY (playerid, lessonid),
+    FOREIGN KEY (playerid) REFERENCES PLAYER(memberid),
+    FOREIGN KEY (lessonid) REFERENCES LESSON(id)
 );
 """
 
 CREATE_RESERVATION_TABLE = """
 CREATE TABLE IF NOT EXISTS RESERVATION (
-	id	INTEGER NOT NULL PRIMARY KEY,
-    fieldID INTEGER,
-    startTime TEXT,
-    endTime TEXT,
-    lessonID INTEGER,
-    coachID INTEGER
+    id INTEGER NOT NULL PRIMARY KEY,
+    fieldid INTEGER,
+    starttime TIME,
+    endtime TIME,
+    lessonid INTEGER,
+    coachid INTEGER,
+    FOREIGN KEY (fieldid) REFERENCES FIELD(id),
+    FOREIGN KEY (lessonid) REFERENCES LESSON(id),
+    FOREIGN KEY (coachid) REFERENCES COACH(memberid)
 );
 """
-
-CREATE_PLAYER_RESERVATION_TABLE = """
-CREATE TABLE IF NOT EXISTS PLAYER_RESERVATION (
-	playerID	INTEGER NOT NULL,
-    reservationID	INTEGER NOT NULL,
-    PRIMARY KEY (playerID, reservationID)
-);
-"""
-
 
 CREATE_FIELD_TABLE = """
 CREATE TABLE IF NOT EXISTS FIELD (
@@ -138,8 +142,10 @@ CREATE TABLE IF NOT EXISTS FIELD (
 
 CREATE_FIELD_RESERVATION_TABLE = """
 CREATE TABLE IF NOT EXISTS FIELD_RESERVATION (
-	reservationID	INTEGER NOT NULL,
-    fieldID	INTEGER NOT NULL,
-    PRIMARY KEY (reservationID, fieldID)
+    reservationid INTEGER NOT NULL,
+    fieldid INTEGER NOT NULL,
+    PRIMARY KEY (reservationid, fieldid),
+    FOREIGN KEY (reservationid) REFERENCES RESERVATION(id),
+    FOREIGN KEY (fieldid) REFERENCES FIELD(id)
 );
 """
