@@ -1,20 +1,20 @@
 import sqlite3
 
-from .database_functions.member import Member
-from .database_functions.player import Player
-from .database_functions.coach import Coach
-from .database_functions.player_sub import PlayerSub
-from .database_functions.subscription import Subscription
-from .database_functions.equipment_rental import EquipmentRental
-from .database_functions.equipment import Equipment
-from .database_functions.tournament_par import TournamentPar
-from .database_functions.tournament import Tournament
-from .database_functions.lesson_par import LessonPar
-from .database_functions.lesson import Lesson 
-from .database_functions.player_res import PlayerRes
-from .database_functions.reservation import Reservation
-from .database_functions.field_res import FieldRes
-from .database_functions.field import Field
+from database_functions.member import Member
+from database_functions.player import Player
+from database_functions.coach import Coach
+from database_functions.player_sub import PlayerSub
+from database_functions.subscription import Subscription
+from database_functions.equipment_rental import EquipmentRental
+from database_functions.equipment import Equipment
+from database_functions.tournament_par import TournamentPar
+from database_functions.tournament import Tournament
+from database_functions.lesson_par import LessonPar
+from database_functions.lesson import Lesson 
+from database_functions.player_res import PlayerRes
+from database_functions.reservation import Reservation
+from database_functions.field_res import FieldRes
+from database_functions.field import Field
 
 
 connection = sqlite3.connect("./tennis-club.db")
