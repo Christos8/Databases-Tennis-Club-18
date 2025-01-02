@@ -1,5 +1,6 @@
 from user_login import UserLogin
 from user_signup import SignUp
+from coach_login import CoachLogin
 
 class LoginMenu:
     def __init__(self):
@@ -13,7 +14,7 @@ class LoginMenu:
         for i, option in enumerate(self.options, 1):
             print(f"{i}. {option}")
 
-    def player_display(self):
+    def user_display(self):
         print("Choose what you wish to do!\n")
         for i, player_option in enumerate(self.player_options, 1):
             print(f"{i}. {player_option}")
@@ -27,22 +28,24 @@ class LoginMenu:
                     return choice
                 else:
                     print("Invalid choice. Please try again.")
+                    LoginMenu()
             except ValueError:
                 print("Invalid input. Please enter a number.")
+                LoginMenu()
 
     def handle_choice(self, choice):
         match choice:
             case 1:
-                self.login()
+                self.player_login()
             case 2:
-                self.login()
+                self.coach_login()
             case 3:
                 self.register()
             case 4:
                 print("Exiting...")
                 exit()
 
-    def login(self):
+    def player_login(self):
         username = input("Enter your username: ")
         password = input("Enter your password: ")
         user_login = UserLogin(username, password)
@@ -50,12 +53,30 @@ class LoginMenu:
             print("\nWelcome to the tennis club!")
             
             self.player_options = ["Make a court reservation", "Participate on a tennis lesson", "Exit"]
-            self.player_display()
-            player_choice = self.get_player_choice()
-            self.handle_player_choice(player_choice)
+            self.user_display()
+            user_choice = self.get_user_choice()
+            self.handle_player_choice(user_choice)
         else:
             print("Invalid username or password. Please try again.")
             LoginMenu()
+
+
+    def coach_login(self):
+        username = input("Enter your username: ")
+        password = input("Enter your password: ")
+        coach_login = CoachLogin(username, password)
+        if coach_login.login():
+            print("\nWelcome to the tennis club!")
+            
+            self.player_options = ["Participate on a court reservation", "See your lessons", "Exit"]
+            self.user_display()
+            user_choice = self.get_user_choice()
+            self.handle_coach_choice(user_choice)
+        else:
+            print("Invalid username or password. Please try again.")
+            LoginMenu()
+
+
     
     def register(self):
         username = input("Enter your username: ")
@@ -68,25 +89,40 @@ class LoginMenu:
         self.handle_choice(choice)
 
     
-    def get_player_choice(self):
+    def get_user_choice(self):
         while True:
             try:
-                player_choice = int(input("Enter your choice: "))
-                if 1 <= player_choice <= len(self.player_options):
-                    return player_choice
+                user_choice = int(input("Enter your choice: "))
+                if 1 <= user_choice <= len(self.player_options):
+                    return user_choice
                 else:
                     print("Invalid choice. Please try again.")
+                    LoginMenu()
             except ValueError:
                 print("Invalid input. Please enter a number.")
+                LoginMenu()
 
-    def handle_player_choice(self, player_choice):
-        match player_choice:
+    def handle_player_choice(self, user_choice):
+        match user_choice:
             case 1:
                 #self.login()
                 print("Make a reservation")
             case 2:
                 #self.login()
                 print("Take part on a lesson")
+            case 3:
+                print("Exiting...")
+                exit()
+
+
+    def handle_coach_choice(self, user_choice):
+        match user_choice:
+            case 1:
+                #self.login()
+                print("Participate on a court reservation")
+            case 2:
+                #self.login()
+                print("See your lessons")
             case 3:
                 print("Exiting...")
                 exit()
