@@ -1,5 +1,6 @@
 from login_menu import LoginMenu
 import sqlite3
+from __init__ import *
 
 
 def main():

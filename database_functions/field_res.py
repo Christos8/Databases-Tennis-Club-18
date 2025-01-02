@@ -3,7 +3,7 @@ from create_tables import CREATE_FIELD_RESERVATION_TABLE
 from insert_tables import INSERT_FIELD_RESERVATION
 
 
-class Field:
+class FieldRes:
     def __init__(self, cursor, connection):
         self.cursor = cursor
         self.connection = connection
