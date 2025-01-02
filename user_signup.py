@@ -1,30 +1,35 @@
+from __init__ import user_functions, member_functions
+from entity_instances.member_in import MemberIn
 from entity_instances.user_auth_in import UserAuthIn
-from create_tables import CREATE_USER_AUTH_TABLE
-from insert_tables import INSERT_USER_AUTH
 
 
 class SignUp:
-    def __init__(self, username, cursor, connection):
+    def __init__(self, username):
         self.username = username
-        self.cursor = cursor
-        self.connection = connection
-        self.cursor.executescript(CREATE_USER_AUTH_TABLE)
-
-
-    def check_username(self, user: UserAuthIn):
-        # placeholder for the actual username check logic
-        if (self.username == "giorgis"):
-            print("!Username already exists. Please try again.!")
-            return False
         
-        if (self.username == user.username):
+
+
+    def check_username(self):
+        # placeholder for the actual username check logic
+        if (self.username == "giorgis1"):
             print("!Username already exists. Please try again.!")
             return False
+    
         return True
 
-    def user_signup(self, password, username, user: UserAuthIn):
+    def user_signup(self, password):
         # placeholder for the actual signup logic
-        with self.connection:
-            self.cursor.execute(INSERT_USER_AUTH, (self.username, self.password))
+        name = input("Enter your name: ")
+        surname = input("Enter your surname: ")
+        birthdate = input("Enter your birthdate: ")
+        phone = input("Enter your phone: ")
+        address = input("Enter your address: ")
+        email = input("Enter your email: ")
+        category = input("Enter your category(player/coach): ")
+
+        member = MemberIn(name, surname, birthdate, phone, address, email, category, self.username)
+        member_functions.add_member(member)
+        user = UserAuthIn(self.username, password)
+        user_functions.add_user_auth(user)
 
         print(f"User {self.username} signed up successfully with password {password}.")

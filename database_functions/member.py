@@ -11,6 +11,6 @@ class Member:
 
     def add_member(self, member: MemberIn):
         with self.connection:
-            self.cursor.execute(INSERT_MEMBER, (member.id, member.name, member.surname, member.birthdate, member.phone, member.address, member.email, member.category, member.username))
+            self.cursor.execute(INSERT_MEMBER, (member.name, member.surname, member.birthdate, member.phone, member.address, member.email, member.category, member.username))
 
     

@@ -1,3 +1,4 @@
+import bcrypt
 
 class UserAuthIn:
 
@@ -8,5 +9,4 @@ class UserAuthIn:
     ):
         
         self.username = username        
-        self.password = password
-
+        self.password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')

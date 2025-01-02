@@ -1,5 +1,5 @@
 INSERT_USER_AUTH = "INSERT INTO USER_AUTH (username, password) VALUES (?, ?)"
-INSERT_MEMBER = "INSERT INTO MEMBER (id, name, surname, birthdate, phone, address, email, category, username) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+INSERT_MEMBER = "INSERT INTO MEMBER (name, surname, birthdate, phone, address, email, category, username) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)"
 INSERT_PLAYER = "INSERT INTO PLAYER (memberID) VALUES (?)"
 INSERT_COACH = "INSERT INTO COACH (memberID) VALUES (?)"
 INSERT_TOURNAMENT = "INSERT INTO TOURNAMENT (id, deadline, fee, prize, date, sTime) VALUES (?, ?, ?, ?, ?, ?)"

@@ -15,6 +15,7 @@ from database_functions.player_res import PlayerRes
 from database_functions.reservation import Reservation
 from database_functions.field_res import FieldRes
 from database_functions.field import Field
+from database_functions.user_auth import UserAuth
 
 
 connection = sqlite3.connect("./tennis-club.db")
@@ -36,3 +37,4 @@ playerres_functions = PlayerRes(cursor, connection)
 reservation_functions = Reservation(cursor, connection)
 fieldres_functions = FieldRes(cursor, connection)
 field_functions = Field(cursor, connection)
+user_functions = UserAuth(cursor, connection)

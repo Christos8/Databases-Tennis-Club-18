@@ -1,9 +1,12 @@
 import bcrypt
+from entity_instances.user_auth_in import UserAuthIn
 
 class UserLogin:
     def __init__(self, username, password):
         self.username = username
         self.password = password
+        UserAuthIn(username, password)
+    
 
     def login(self):
         if (self.username != "giorgis"): # select_user(self.username)
