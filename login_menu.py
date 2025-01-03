@@ -1,6 +1,7 @@
 from user_login import UserLogin
 from user_signup import SignUp
 from coach_login import CoachLogin
+from coach_menu import CoachMenu
 
 class LoginMenu:
     def __init__(self):
@@ -67,11 +68,7 @@ class LoginMenu:
         coach_login = CoachLogin(username, password)
         if coach_login.login():
             print("\nWelcome to the tennis club!")
-            
-            self.player_options = ["Participate on a court reservation", "See your lessons", "Exit"]
-            self.user_display()
-            user_choice = self.get_user_choice()
-            self.handle_coach_choice(user_choice)
+            CoachMenu(username, password)
         else:
             print("Invalid username or password. Please try again.")
             LoginMenu()
@@ -115,15 +112,3 @@ class LoginMenu:
                 print("Exiting...")
                 exit()
 
-
-    def handle_coach_choice(self, user_choice):
-        match user_choice:
-            case 1:
-                #self.login()
-                print("Participate on a court reservation")
-            case 2:
-                #self.login()
-                print("See your lessons")
-            case 3:
-                print("Exiting...")
-                exit()
