@@ -53,4 +53,13 @@ class Coach:
         else:
             print(f"Reservation with ID {Resid} does not exist.")
 
+
+    def lessons(self):
+        print("Your lessons are:")
+        for lesson in SELECT_LESSONS:
+            print(lesson)
+        print("\n")
+    
+
+
     

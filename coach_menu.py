@@ -1,6 +1,6 @@
 from select_tables import SELECT_LESSONS, SELECT_COACHID, SELECT_RESERVATION
 from update_tables import UPDATE_RESERVATION
-from database_functions.coach import Coach
+from __init__ import coach_functions
 
 class CoachMenu:
 
@@ -46,35 +46,9 @@ class CoachMenu:
 
     
     def reservation_part(self):
-        # name = input("Enter your username: ")
-        # self.cursor.execute(SELECT_COACHID, (name,))
-
-        # result = self.cursor.fetchone()
-
-        # if result:
-        #     coachid = result[0]  
-        # else:
-        #     print("Coach not found.")
-        #     return
-    
-        # Resid = input("Put the ID of the reservation you want to participate in: ")
-
-        # self.cursor.execute(SELECT_RESERVATION, (Resid,))
-        # reservation = self.cursor.fetchone()
-
-        # if reservation:
-        #     self.cursor.execute(UPDATE_RESERVATION, (coachid, Resid))
-        #     self.connection.commit()
-        #     print(f"Coach {coachid} has been added to reservation {Resid}.")
-        # else:
-        #     print(f"Reservation with ID {Resid} does not exist.")
-        Coach(self.cursor, self.connection).coach_reservation()
+        coach_functions.coach_reservation()
 
 
     
     def lessons(self):
-        print("Your lessons are:")
-        for lesson in SELECT_LESSONS:
-            print(lesson)
-        print("\n")
-        #self.coach()
+        coach_functions.lessons()
