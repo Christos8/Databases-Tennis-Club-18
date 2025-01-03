@@ -1,18 +1,16 @@
 import bcrypt
 from entity_instances.user_auth_in import UserAuthIn
-from __init__ import user_functions, member_functions
+from __init__ import user_functions, player_functions
 
 class UserLogin:
     def __init__(self, username, password):
         self.username = username
-        self.password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-        UserAuthIn(username, password)
-    
-
+        self.password = password
+        
+    # Returns True if the login is successful, false otherwise
     def login(self):
-        if (user_functions.check_username(self.username)):
-            print("!Username does not exist. Please try again.!")
-        if(user_functions.check_password(self.username, self.password)):
-            print("!Password does not match. Please try again.!")
-        else:
+        if not player_functions.check_player_exists(self.username):
             return False
+        if bcrypt.checkpw(self.password.encode(), user_functions.return_hashed_password(self.username).encode()):
+                return True
+        return False
