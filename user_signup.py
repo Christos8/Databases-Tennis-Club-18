@@ -28,14 +28,25 @@ class SignUp:
         address = input("Enter your address: ")
         email = input("Enter your email: ")
         category = input("Enter your category(player/coach): ")
+        print(category)
+        #member = MemberIn(name, surname, birthdate, phone, address, email, category, self.username)
+        #member_functions.add_member(member)
+        
+        while (category != 'player' and category != 'coach'):
+            print("Put a correct category:")
+            category = input("Enter your category(player/coach): ")
+        print(category)
+
         member = MemberIn(name, surname, birthdate, phone, address, email, category, self.username)
         member_functions.add_member(member)
+
         if category == "player":
             player = PlayerIn(self.username)
             player_functions.add_player(player)
         if category == "coach":
             coach = CoachIn(self.username)
             coach_functions.add_coach(coach)
+        
         user = UserAuthIn(self.username, password)
         user_functions.add_user_auth(user)
 
