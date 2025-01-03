@@ -46,7 +46,16 @@ class CoachMenu:
     
     def reservation_part(self, UPDATE_RESERVATION, SELECT_COACHID, SELECT_RESERVATION):
         name = input("Enter your username: ")
-        coachid = self.cursor.executescript(SELECT_COACHID, (name)).fetchone()
+        self.cursor.execute(SELECT_COACHID, (name,))
+
+        result = self.cursor.fetchone()
+
+        if result:
+            coachid = result[0]  
+        else:
+            print("Coach not found.")
+            return
+    
         Resid = input("Put the ID of the reservation you want to participate in: ")
 
         self.cursor.execute(SELECT_RESERVATION, (Resid,))
