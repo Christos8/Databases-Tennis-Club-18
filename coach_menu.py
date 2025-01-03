@@ -6,8 +6,6 @@ class CoachMenu:
     def __init__(self, cursor, connection):
         self.cursor = cursor
         self.connection = connection
-
-    def coach(self):
         self.coach_options = ["Participate on a court reservation", "See your lessons", "Exit"]
         self.coach_display()
         coach_choice = self.get_coach_choice()
@@ -24,7 +22,7 @@ class CoachMenu:
             case 1:
                 #self.login()
                 print("Participate on a court reservation")
-                self.reservation_part()
+                self.reservation_part(UPDATE_RESERVATION, SELECT_COACHID, SELECT_RESERVATION)
             case 2:
                 #self.login()
                 print("See your lessons")
@@ -48,7 +46,7 @@ class CoachMenu:
     
     def reservation_part(self, UPDATE_RESERVATION, SELECT_COACHID, SELECT_RESERVATION):
         name = input("Enter your username: ")
-        coachid = self.cursor.execute(SELECT_COACHID, (name)).fetchone()
+        coachid = self.cursor.executescript(SELECT_COACHID, (name)).fetchone()
         Resid = input("Put the ID of the reservation you want to participate in: ")
 
         self.cursor.execute(SELECT_RESERVATION, (Resid,))
@@ -68,4 +66,4 @@ class CoachMenu:
         for lesson in SELECT_LESSONS:
             print(lesson)
         print("\n")
-        self.coach()
+        #self.coach()

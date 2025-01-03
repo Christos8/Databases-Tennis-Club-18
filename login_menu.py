@@ -67,7 +67,8 @@ class LoginMenu:
         password = input("Enter your password: ")
         coach_login = CoachLogin(username, password)
         if coach_login.login():
-            CoachMenu()
+            print("\nWelcome to the tennis club!")
+            CoachMenu(username, password)
         else:
             print("Invalid username or password. Please try again.")
             LoginMenu()
