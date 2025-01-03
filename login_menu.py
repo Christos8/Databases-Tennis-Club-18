@@ -49,7 +49,7 @@ class LoginMenu:
         username = input("Enter your username: ")
         password = input("Enter your password: ")
         user_login = UserLogin(username, password)
-        if user_login.login():
+        if user_login.player_login():
             print("\nWelcome to the tennis club!")
             
             self.player_options = ["Make a court reservation", "Participate on a tennis lesson", "Exit"]
