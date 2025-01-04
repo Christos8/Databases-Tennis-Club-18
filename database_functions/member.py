@@ -13,7 +13,7 @@ class Member:
     def return_member(self, username):
         self.cursor.execute(SELECT_PROFILE, (username,))
         member_data = self.cursor.fetchone()
-        member = MemberIn(*member_data)
+        member = MemberIn(member_data[1], member_data[2], member_data[3], member_data[4], member_data[5], member_data[6], member_data[7], member_data[8], member_data[0])
         return member
 
     def add_member(self, member: MemberIn):

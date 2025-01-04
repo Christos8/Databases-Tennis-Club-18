@@ -1,7 +1,7 @@
 from entity_instances.tournament_in import TournamentIn
 from create_tables import CREATE_TOURNAMENT_TABLE
 from insert_tables import INSERT_TOURNAMENT
-from select_tables import SELECT_TOURNAMENTS_ALL
+from select_tables import SELECT_TOURNAMENTS_ALL, SELECT_TOURNAMENT_FROM_ID
 
 
 class Tournament:
@@ -36,3 +36,8 @@ class Tournament:
                   Player ID: {participant[0]}
                   Tournament ID: {participant[1]}
                   """)
+    
+    def return_tournament_from_id(self, tournament_id):
+        self.cursor.execute(SELECT_TOURNAMENT_FROM_ID, (tournament_id,))
+        tournament = TournamentIn(*self.cursor.fetchone())
+        return tournament

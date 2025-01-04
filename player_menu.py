@@ -8,7 +8,7 @@ class PlayerMenu:
 
     def __init__(self, username):
         self.member = member_functions.return_member(username)
-        self.player_options = ["Participate in a tournament", "Make a court reservation", "Participate in a lesson", "View profile", "logout", "Exit"]
+        self.player_options = ["Participate in a tournament","Show my tournaments" , "Make a court reservation", "Participate in a lesson", "View profile", "logout", "Exit"]
         self.player_display()
         player_choice = self.get_player_choice()
         self.handle_player_choice(player_choice)
@@ -24,18 +24,21 @@ class PlayerMenu:
                 print("Participate in a tournament")
                 self.participate_tournament()
             case 2:
+                print("Show my tournaments")
+                self.show_my_tournaments()
+            case 3:
                 print("Make a court reservation")
                 self.make_reservation()
-            case 3:
+            case 4:
                 print("Participate in a lesson")
                 self.participate_lesson()
-            case 4:
+            case 5:
                 print("View profile")
                 self.view_profile()
-            case 5:
+            case 6:
                 print("Logout")
                 self.logout()
-            case 6:
+            case 7:
                 print("Exit")
                 exit()
 
@@ -57,11 +60,25 @@ class PlayerMenu:
         tournament_functions.display_tournaments()
         tournament_id = int(input("Enter the ID of the tournament you wish to participate in: "))
         tournament_par = TournamentParIn(self.member.id, tournament_id)
-        print(tournament_par.playerID, tournament_par.tournamentID) 
-        tournamentpar_functions.add_tournament_par(tournament_par)
-        print("You have successfully registered for the tournament.")
-      #  print(tournament_functions.display_tournament_participants())
+        if tournamentpar_functions.check_participation(tournament_par):
+            print("You have already registered for this tournament.")
+        else:
+            tournamentpar_functions.add_tournament_par(tournament_par)
+            print("You have successfully registered for the tournament.")
+        PlayerMenu(self.member.username)
 
+    def show_my_tournaments(self):
+        # Implement the logic for showing the tournaments that the player has registered for
+        my_tournaments = tournamentpar_functions.get_user_tournaments(self.member.id)
+        if my_tournaments:
+            print("Tournaments you have registered for:")
+            for i in my_tournaments:
+                tournament = tournament_functions.return_tournament_from_id(i[0])
+                print(f"Deadline: {tournament.deadline}\nFee: {tournament.fee}\nPrize: {tournament.prize}\nDate: {tournament.date}\nStart Time: {tournament.sTime}\n")
+        else:
+            print("You have not registered for any tournaments.")
+        input("Press enter to return to main menu")
+        PlayerMenu(self.member.username)
 
     def make_reservation(self):
         fieldid = input("Enter the number of the court you would like to book: \n1. Court 1: Grass\n2. Court 2: Clay\n3. Court 3: Hard\n4. Court 4: Hard")
