@@ -29,7 +29,7 @@ class Tournament:
                   """)   
             
     def show_tournament_participants(self, tournament_id):
-        self.cursor.execute(SELECT_TOURNAMENT_PARTICIPANTS, (tournament_id,))
+        self.cursor.execute(SELECT_TOURNAMENTS_ALL, (tournament_id,))
         participants = self.cursor.fetchall()
         for participant in participants:
             print(f"""

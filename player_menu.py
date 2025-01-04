@@ -1,18 +1,19 @@
 from datetime import date
 from select_tables import SELECT_PROFILE, SELECT_RESERVATION
 from update_tables import UPDATE_RESERVATION
-from __init__ import member_functions,equipment_functions,equipment_rental_functions, reservation_functions, lesson_functions,tournament_functions, tournamentpar_functions
+from __init__ import member_functions,equipment_functions,equipment_rental_functions, reservation_functions, lesson_functions, lessonpar_functions, tournament_functions, tournamentpar_functions
 from entity_instances.reservation_in import ReservationIn
 from entity_instances.tournament_par_in import TournamentParIn
 from entity_instances.equipment_rental_in import EquipmentRentalIn
+from entity_instances.lesson_par_in import LessonParticipationIn
 
 class PlayerMenu:
 
     def __init__(self, username):
         self.member = member_functions.return_member(username)
         self.player_options = ["Participate in a tournament","Show my tournaments" ,
-        "Rent equipment","Show my rentals", "Return equipment"
-         "Make a court reservation", "Participate in a lesson", "View profile", "logout", "Exit"]
+        "Rent equipment","Show my rentals", "Return equipment",
+        "Make a court reservation", "Participate in a lesson", "View profile", "logout", "Exit"]
         self.player_display()
         player_choice = self.get_player_choice()
         self.handle_player_choice(player_choice)
@@ -41,10 +42,10 @@ class PlayerMenu:
                 self.return_equipment()
             case 6:
                 print("Make a court reservation")
-                self.make_court_reservation()
+                self.make_reservation()
             case 7:
                 print("Participate in a lesson")
-                self.participate_in_lesson()
+                self.participate_lesson()
             case 8:
                 print("View profile")
                 self.view_profile()
@@ -144,16 +145,21 @@ class PlayerMenu:
         reservation_functions.add_reservation(reservation)
 
         print("Reservation made successfully.")
+
         
 
     def participate_lesson(self):
         # Implement the logic for participating in a lesson
+        lesson_functions.display_lessons()
+        lesson_id = int(input("Enter the ID of the lesson you wish to participate in: "))
+        lesson_par = LessonParticipationIn(self.member.id, lesson_id)
+        if lessonpar_functions.check_participation(lesson_par):
+            print("You have already registered for this lesson.")
+        else:
+            lessonpar_functions.add_lesson_par(lesson_par)
+            print("You have successfully registered for the lesson.")
+        PlayerMenu(self.member.username)
 
-        lesson = lesson_functions.return_lesson()
-        if lesson:
-            print("Lessons available:")
-            for i in lesson:
-                print(f"Lesson no.{i.id}. At {i.date}, startin at {i.starttime} and ending at {i.endtime} with difficulty {i.difficulty} and with the coach {i.coachid}")
 
     def view_profile(self):
         if self.member:
