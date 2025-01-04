@@ -54,12 +54,11 @@ class Coach:
             print(f"Reservation with ID {Resid} does not exist.")
 
 
-    def lessons(self):
-        print("Your lessons are:")
-        for lesson in SELECT_LESSONS:
-            print(lesson)
-        print("\n")
+    def getid(self, username):
+        self.username = username
+        self.cursor.execute(SELECT_COACHID, (self.username,))
+        self.coachid = self.cursor.fetchone()[0]
+        return self.coachid
     
-
 
     

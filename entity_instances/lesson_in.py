@@ -18,16 +18,7 @@ class LessonIn:
         self.date = date
         self.startTime = startTime
         self.endTime = endTime
-        self.difficulty = ( difficulty
-                             or fake.random_choices(
-                                 elements=[
-                                     "Amateur",
-                                     "Intermediate",
-                                     "Professional"
-                                 ],
-                                 length = 1,
-                             ).pop()
-        )
+        self.difficulty = difficulty
         self.coachID = coachID
         
 

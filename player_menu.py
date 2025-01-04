@@ -1,6 +1,7 @@
 from select_tables import SELECT_PROFILE, SELECT_RESERVATION
 from update_tables import UPDATE_RESERVATION
-from __init__ import member_functions, tournament_functions, tournamentpar_functions
+from __init__ import member_functions, reservation_functions, lesson_functions,tournament_functions, tournamentpar_functions
+from entity_instances.reservation_in import ReservationIn
 from entity_instances.tournament_par_in import TournamentParIn
 
 class PlayerMenu:
@@ -63,12 +64,26 @@ class PlayerMenu:
 
 
     def make_reservation(self):
-        # Implement the logic for making a court reservation
-        pass
+        fieldid = input("Enter the number of the court you would like to book: \n1. Court 1: Grass\n2. Court 2: Clay\n3. Court 3: Hard\n4. Court 4: Hard")
+        starttime = input("Enter the starting time: ")
+        endtime = input("Enter the ending time: ")
+        lessonid = None
+        coachid = None
+
+        reservation = ReservationIn(fieldid, starttime, endtime, lessonid, coachid)
+        reservation_functions.add_reservation(reservation)
+
+        print("Reservation made successfully.")
+        
 
     def participate_lesson(self):
         # Implement the logic for participating in a lesson
-        pass
+
+        lesson = lesson_functions.return_lesson()
+        if lesson:
+            print("Lessons available:")
+            for i in lesson:
+                print(f"Lesson no.{i.id}. At {i.date}, startin at {i.starttime} and ending at {i.endtime} with difficulty {i.difficulty} and with the coach {i.coachid}")
 
     def view_profile(self):
         if self.member:
