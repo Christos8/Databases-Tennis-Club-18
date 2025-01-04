@@ -1,0 +1,1 @@
+DELETE_EQUIPMENT_RENTAL = "DELETE FROM equipment_rental WHERE playerID = (?) AND equipmentID = (?)"

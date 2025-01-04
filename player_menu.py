@@ -1,14 +1,18 @@
+from datetime import date
 from select_tables import SELECT_PROFILE, SELECT_RESERVATION
 from update_tables import UPDATE_RESERVATION
-from __init__ import member_functions, reservation_functions, lesson_functions,tournament_functions, tournamentpar_functions
+from __init__ import member_functions,equipment_functions,equipment_rental_functions, reservation_functions, lesson_functions,tournament_functions, tournamentpar_functions
 from entity_instances.reservation_in import ReservationIn
 from entity_instances.tournament_par_in import TournamentParIn
+from entity_instances.equipment_rental_in import EquipmentRentalIn
 
 class PlayerMenu:
 
     def __init__(self, username):
         self.member = member_functions.return_member(username)
-        self.player_options = ["Participate in a tournament","Show my tournaments" , "Make a court reservation", "Participate in a lesson", "View profile", "logout", "Exit"]
+        self.player_options = ["Participate in a tournament","Show my tournaments" ,
+        "Rent equipment","Show my rentals", "Return equipment"
+         "Make a court reservation", "Participate in a lesson", "View profile", "logout", "Exit"]
         self.player_display()
         player_choice = self.get_player_choice()
         self.handle_player_choice(player_choice)
@@ -27,20 +31,32 @@ class PlayerMenu:
                 print("Show my tournaments")
                 self.show_my_tournaments()
             case 3:
-                print("Make a court reservation")
-                self.make_reservation()
+                print("Rent equipment")
+                self.rent_equipment()
             case 4:
-                print("Participate in a lesson")
-                self.participate_lesson()
+                print("Show my rentals")
+                self.show_my_rentals()
             case 5:
+                print("Return equipment")
+                self.return_equipment()
+            case 6:
+                print("Make a court reservation")
+                self.make_court_reservation()
+            case 7:
+                print("Participate in a lesson")
+                self.participate_in_lesson()
+            case 8:
                 print("View profile")
                 self.view_profile()
-            case 6:
+            case 9:
                 print("Logout")
                 self.logout()
-            case 7:
+            case 10:
                 print("Exit")
-                exit()
+                self.exit()
+            case _:
+                print("Invalid choice. Please try again.")
+                PlayerMenu(self.member.username)
 
     def get_player_choice(self):
         while True:
@@ -79,6 +95,43 @@ class PlayerMenu:
             print("You have not registered for any tournaments.")
         input("Press enter to return to main menu")
         PlayerMenu(self.member.username)
+
+    def rent_equipment(self):
+        equipment_functions.display_equipment()
+        equipment_id = int(input("Enter the ID of the equipment you wish to rent: "))
+        equipment = equipment_functions.return_equipment_from_id(equipment_id)
+        current_date = date.today()
+
+        if equipment:
+            if equipment.availability:
+                rental = EquipmentRentalIn(self.member.id, equipment_id, current_date)
+                equipment_rental_functions.add_equipment_rental(rental)
+                equipment_functions.update_equipment_availability(equipment_id, 0)
+                print("Equipment rented successfully.")
+            else:
+                print("Equipment is not available.")
+        else:
+            print("Equipment not found.")
+        input("Press enter to return to main menu")
+        PlayerMenu(self.member.username)
+
+    def show_my_rentals(self):
+        my_rentals = equipment_rental_functions.get_user_rentals(self.member.id)
+
+        if my_rentals:
+            print("Equipment you have rented:")
+            for i in my_rentals:
+                equipment = equipment_functions.return_equipment_from_id(i.equipmentID)
+                print(f"""ID: {equipment.id}\nDescription: {equipment.description}\nCharacteristic Code: {equipment.characteristicCode}\nRent Date: {i.rentDate}\n""")
+        else:
+            print("You have not rented any equipment.")
+
+    def return_equipment(self):
+        self.show_my_rentals()
+        equipment_id = int(input("Enter the ID of the equipment you wish to return: "))
+        equipment = equipment_functions.return_equipment_from_id(equipment_id)
+        equipment_functions.update_equipment_availability(equipment_id, 1)
+        equipment_rental_functions.delete_equipment_rental(self.member.id, equipment_id)
 
     def make_reservation(self):
         fieldid = input("Enter the number of the court you would like to book: \n1. Court 1: Grass\n2. Court 2: Clay\n3. Court 3: Hard\n4. Court 4: Hard")
