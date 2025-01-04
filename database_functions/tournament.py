@@ -1,6 +1,7 @@
 from entity_instances.tournament_in import TournamentIn
 from create_tables import CREATE_TOURNAMENT_TABLE
 from insert_tables import INSERT_TOURNAMENT
+from select_tables import SELECT_TOURNAMENTS_ALL
 
 
 class Tournament:
@@ -11,6 +12,27 @@ class Tournament:
 
     def add_tournament(self, tournament: TournamentIn):
         with self.connection:
-            self.cursor.execute(INSERT_TOURNAMENT, (tournament.id, tournament.deadline, tournament.fee, tournament.prize, tournament.date, tournament.sTime))
+            self.cursor.execute(INSERT_TOURNAMENT, (tournament.deadline, tournament.fee, tournament.prize, tournament.date, tournament.sTime))
 
-    
+    def display_tournaments(self):
+
+        self.cursor.execute(SELECT_TOURNAMENTS_ALL)
+        tournaments = self.cursor.fetchall()
+        for tournament in tournaments:
+            print(f"""
+                  Tournament ID: {tournament[0]}
+                  Deadline: {tournament[1]}
+                  Fee: {tournament[2]}
+                  Prize: {tournament[3]}
+                  Date: {tournament[4]}
+                  Start Time: {tournament[5]}
+                  """)   
+            
+    def show_tournament_participants(self, tournament_id):
+        self.cursor.execute(SELECT_TOURNAMENT_PARTICIPANTS, (tournament_id,))
+        participants = self.cursor.fetchall()
+        for participant in participants:
+            print(f"""
+                  Player ID: {participant[0]}
+                  Tournament ID: {participant[1]}
+                  """)

@@ -7,7 +7,7 @@ class CoachMenu:
     def __init__(self, cursor, connection):
         self.cursor = cursor
         self.connection = connection
-        self.coach_options = ["Participate on a court reservation", "See your lessons", "Exit"]
+        self.coach_options = ["Participate on a court reservation", "See your lessons", "logout", "Exit"]
         self.coach_display()
         coach_choice = self.get_coach_choice()
         self.handle_coach_choice(coach_choice)
@@ -28,6 +28,9 @@ class CoachMenu:
                 #self.login()
                 print("See your lessons")
             case 3:
+                print("Logging out...")
+                self.logout()
+            case 4:
                 print("Exiting...")
                 exit()
 
@@ -52,3 +55,7 @@ class CoachMenu:
     
     def lessons(self):
         coach_functions.lessons()
+
+    def logout(self):
+        from login_menu import LoginMenu
+        LoginMenu()
