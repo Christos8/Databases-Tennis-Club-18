@@ -76,7 +76,6 @@ class LoginMenu:
         username = input("Enter your username: ")
         user_signup = SignUp(username)
         if user_signup.check_username():
-            
             password = input("Enter your password: ")
             user_signup.user_signup(password)
         self.display()
