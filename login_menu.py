@@ -6,7 +6,7 @@ from player_menu import PlayerMenu
 
 class LoginMenu:
     def __init__(self):
-        self.options = ["Player Login", "Coach Login", "Register", "Exit"]
+        self.options = ["Player Login", "Coach Login", "Register", "Exit", "Admin"]
         self.display()
         choice = self.get_choice()
         self.handle_choice(choice)
@@ -46,6 +46,8 @@ class LoginMenu:
             case 4:
                 print("Exiting...")
                 exit()
+            case 5:
+                self.admin_menu()
 
     def player_login(self):
         username = input("Enter your username: ")
@@ -108,3 +110,7 @@ class LoginMenu:
                 print("Exiting...")
                 exit()
 
+    def admin_menu(self):
+        from admin_login import AdminLogin
+        admin_login = AdminLogin()
+        admin_login.admin_menu()
