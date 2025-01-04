@@ -12,7 +12,7 @@ class Member:
 
     def return_member(self, username):
         self.cursor.execute(SELECT_PROFILE, (username,))
-        _, *member_data = self.cursor.fetchone()
+        member_data = self.cursor.fetchone()
         member = MemberIn(*member_data)
         return member
 

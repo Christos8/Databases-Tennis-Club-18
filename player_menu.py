@@ -1,13 +1,14 @@
 from select_tables import SELECT_PROFILE, SELECT_RESERVATION
 from update_tables import UPDATE_RESERVATION
-from __init__ import member_functions, reservation_functions, lesson_functions
+from __init__ import member_functions, reservation_functions, lesson_functions,tournament_functions, tournamentpar_functions
 from entity_instances.reservation_in import ReservationIn
+from entity_instances.tournament_par_in import TournamentParIn
 
 class PlayerMenu:
 
     def __init__(self, username):
-        self.username = username
-        self.player_options = ["Make a court reservation", "Participate in a lesson", "View profile", "logout", "Exit"]
+        self.member = member_functions.return_member(username)
+        self.player_options = ["Participate in a tournament", "Make a court reservation", "Participate in a lesson", "View profile", "logout", "Exit"]
         self.player_display()
         player_choice = self.get_player_choice()
         self.handle_player_choice(player_choice)
@@ -20,19 +21,22 @@ class PlayerMenu:
     def handle_player_choice(self, player_choice):
         match player_choice:
             case 1:
+                print("Participate in a tournament")
+                self.participate_tournament()
+            case 2:
                 print("Make a court reservation")
                 self.make_reservation()
-            case 2:
+            case 3:
                 print("Participate in a lesson")
                 self.participate_lesson()
-            case 3:
+            case 4:
                 print("View profile")
                 self.view_profile()
-            case 4:
-                print("Logging out...")
-                self.logout()
             case 5:
-                print("Exiting...")
+                print("Logout")
+                self.logout()
+            case 6:
+                print("Exit")
                 exit()
 
     def get_player_choice(self):
@@ -47,6 +51,17 @@ class PlayerMenu:
             except ValueError:
                 print("Invalid input. Please enter a number.")
                 PlayerMenu(self.username)
+
+    def participate_tournament(self):
+        # Implement the logic for participating in a tournament
+        tournament_functions.display_tournaments()
+        tournament_id = int(input("Enter the ID of the tournament you wish to participate in: "))
+        tournament_par = TournamentParIn(self.member.id, tournament_id)
+        print(tournament_par.playerID, tournament_par.tournamentID) 
+        tournamentpar_functions.add_tournament_par(tournament_par)
+        print("You have successfully registered for the tournament.")
+      #  print(tournament_functions.display_tournament_participants())
+
 
     def make_reservation(self):
         fieldid = input("Enter the number of the court you would like to book: \n1. Court 1: Grass\n2. Court 2: Clay\n3. Court 3: Hard\n4. Court 4: Hard")
@@ -71,18 +86,17 @@ class PlayerMenu:
                 print(f"Lesson no.{i.id}. At {i.date}, startin at {i.starttime} and ending at {i.endtime} with difficulty {i.difficulty} and with the coach {i.coachid}")
 
     def view_profile(self):
-        member = member_functions.return_member(self.username)
-        if member:
-            print(f"Profile details for user {member.username}:\n")
-            print(f"Name: {member.name}")
-            print(f"Surname: {member.surname}")
-            print(f"Birthdate: {member.birthdate}")
-            print(f"Phone: {member.phone}")
-            print(f"Address: {member.address}")
-            print(f"Email: {member.email}")
-            print(f"Category: {member.category}")
+        if self.member:
+            print(f"Profile details for user {self.member.username}:\n")
+            print(f"Name: {self.member.name}")
+            print(f"Surname: {self.member.surname}")
+            print(f"Birthdate: {self.member.birthdate}")
+            print(f"Phone: {self.member.phone}")
+            print(f"Address: {self.member.address}")
+            print(f"Email: {self.member.email}")
+            print(f"Category: {self.member.category}")
             input("Press enter to return to main menu")
-            PlayerMenu(self.username)
+            PlayerMenu(self.member.username)
         else:
             print("Profile not found.")
     

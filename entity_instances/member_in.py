@@ -6,6 +6,7 @@ class MemberIn:
 
     def __init__(
         self,
+        id = None,
         name = None,
         surname = None,
         birthdate = None,
@@ -16,7 +17,7 @@ class MemberIn:
         username = None,
     ):
         
-        
+        self.id = id
         self.name = name
         self.surname = surname
         self.birthdate = birthdate

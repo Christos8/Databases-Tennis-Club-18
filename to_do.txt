@@ -8,6 +8,7 @@
 1. kante krathsh ghpedo
 2. symmetoxh se mathima
 3. to profil moy
+4. logout
 kai analoga thn epilogh na emfanizontai oi diathesimotites kai an thelei na kanei rent equipment
 
 
@@ -25,4 +26,4 @@ EPILOGES COACH:
 
 1. TA MATHIMATA MOY 
 2. SYMMETOXH SE KRATHSH 
-3. 
+3. LOGOUT
