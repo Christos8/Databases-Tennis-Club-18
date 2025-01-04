@@ -65,7 +65,7 @@ class LoginMenu:
         coach_login = CoachLogin(username, password)
         if coach_login.login():
             print("\nWelcome to the tennis club!")
-            CoachMenu(username, password)
+            CoachMenu(username)
         else:
             print("Invalid username or password. Please try again.")
             LoginMenu()

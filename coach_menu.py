@@ -1,12 +1,11 @@
 from select_tables import SELECT_LESSONS, SELECT_COACHID, SELECT_RESERVATION
 from update_tables import UPDATE_RESERVATION
-from __init__ import coach_functions
+from __init__ import coach_functions, lesson_functions
 
 class CoachMenu:
 
-    def __init__(self, cursor, connection):
-        self.cursor = cursor
-        self.connection = connection
+    def __init__(self, username):
+        self.username = username
         self.coach_options = ["Participate on a court reservation", "See your lessons", "Exit"]
         self.coach_display()
         coach_choice = self.get_coach_choice()
@@ -21,12 +20,11 @@ class CoachMenu:
     def handle_coach_choice(self, user_choice):
         match user_choice:
             case 1:
-                #self.login()
                 print("Participate on a court reservation")
                 self.reservation_part()
             case 2:
-                #self.login()
-                print("See your lessons")
+                print("My lessons:\n")
+                self.lessons()
             case 3:
                 print("Exiting...")
                 exit()
@@ -51,4 +49,19 @@ class CoachMenu:
 
     
     def lessons(self):
-        coach_functions.lessons()
+        id = coach_functions.getid(self.username)
+        lessons = lesson_functions.return_lesson(id)
+        if lessons:
+            for lesson in lessons:
+                print(f"Lesson ID: {lesson.id}")
+                print(f"Lesson Date: {lesson.date}")
+                print(f"Starting Time: {lesson.startTime}")
+                print(f"Ending Time: {lesson.endTime}")
+                print(f"Difficulty: {lesson.difficulty}\n")
+        else:
+            print("Profile not found.")
+            
+        input("Press enter to return to main menu")
+        CoachMenu(self.username)
+
+   
