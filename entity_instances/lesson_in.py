@@ -1,9 +1,3 @@
-from faker import Faker
-
-Faker.seed(1234)
-fake = Faker(locale="el_GR")
-
-
 class LessonIn:
     def __init__(
         self,
