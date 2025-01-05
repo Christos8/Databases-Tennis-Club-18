@@ -142,6 +142,7 @@ class PlayerMenu:
         playerid = player_functions.get_player_id(self.member.username)
         lessonid = None
         coachid = None
+        print("AAAAAAA", playerid)
 
         reservation = ReservationIn(playerid, fieldid, date, starttime, endtime, lessonid, coachid)
         reservation_functions.add_reservation(reservation)
