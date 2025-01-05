@@ -1,7 +1,7 @@
 from entity_instances.player_in import PlayerIn
 from create_tables import CREATE_PLAYER_TABLE
 from insert_tables import INSERT_PLAYER
-from select_tables import SELECT_MEMBER_ID_FROM_USERNAME, SELECT_PLAYER_ID_FROM_MEMBER_ID
+from select_tables import SELECT_MEMBER_ID_FROM_USERNAME, SELECT_PLAYER_ID_FROM_MEMBER_ID, SELECT_PLAYERID
 
 
 class Player:
@@ -27,5 +27,12 @@ class Player:
             self.cursor.execute(SELECT_MEMBER_ID_FROM_USERNAME, (player.username,))
             player.memberID = self.cursor.fetchone()[0]
             self.cursor.execute(INSERT_PLAYER, (player.memberID,))
+
+    def get_player_id(self, username):
+        self.username = username
+        self.cursor.execute(SELECT_PLAYERID, (self.username,))
+        self.playerid = self.cursor.fetchone()[0]
+        return self.playerid
+
 
     

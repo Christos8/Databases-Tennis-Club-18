@@ -15,18 +15,18 @@ class SubscriptionIn:
         self.endDate = endDate
         self.type = type
         self.category = category
-        self.status = status or self.set_status()
+        self.status = status #or self.set_status()
 
 
-    def set_status(self):
-        today = date.today()
+    # def set_status(self):
+    #     today = date.today()
         
-        if self.startDate and self.endDate:
-            if self.startDate <= today <= self.endDate:
-                return "Active"
-            elif today > self.endDate:
-                return "Upcoming"
-            else:
-                return "Check the Dates again"
-        return "Set Dates"  
+    #     if self.startDate and self.endDate:
+    #         if self.startDate <= today <= self.endDate:
+    #             return "Active"
+    #         elif today > self.endDate:
+    #             return "Upcoming"
+    #         else:
+    #             return "Check the Dates again"
+    #     return "Set Dates"  
         

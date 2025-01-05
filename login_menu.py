@@ -3,6 +3,11 @@ from user_signup import SignUp
 from coach_login import CoachLogin
 from coach_menu import CoachMenu
 from player_menu import PlayerMenu
+from __init__ import player_functions, playersub_functions, subscription_functions
+from entity_instances.subscription_in import SubscriptionIn
+from datetime import date, timedelta
+
+
 
 class LoginMenu:
     def __init__(self):
@@ -55,7 +60,30 @@ class LoginMenu:
         user_login = UserLogin(username, password)
         if user_login.login():
             print("\nWelcome to the tennis club!")
-            PlayerMenu(username)
+            player_id = player_functions.get_player_id(username)
+            check_sub = playersub_functions.check_subscription(player_id)
+            if check_sub:
+                print("You have an active subscription.")
+                PlayerMenu(username)
+            else:
+                print("You do not have an active subscription.")
+                input("Press Enter to subscribe.")   
+                startdate = date.today().strftime("%d/%m/%Y")
+                type1 = input("Enter the type of subscription: \n1. Monthly\n2. 6 months\n3. Yearly\n")
+                if type1 == "1":
+                    type = "Monthly"
+                    enddate = date.today() + timedelta(days=30)
+                elif type1 == "2":
+                    type = "6 months"
+                    enddate = date.today() + timedelta(days=180)
+                elif type1 == "3": 
+                    type = "Yearly"
+                    enddate = date.today() + timedelta(days=365)
+                input("Press Enter to confirm subscription.")
+                status = "Active"
+                category = "player"
+                sub = SubscriptionIn(startdate, enddate, type, category, status)   
+                subscription_functions.add_subscription(sub)       
         else:
             print("Invalid username or password. Please try again.")
             LoginMenu()
