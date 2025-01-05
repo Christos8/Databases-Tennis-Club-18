@@ -128,12 +128,13 @@ class PlayerMenu:
             for i in my_rentals:
                 equipment = equipment_functions.return_equipment_from_id(i.equipmentID)
                 print(f"""ID: {equipment.id}\nDescription: {equipment.description}\nCharacteristic Code: {equipment.characteristicCode}\nRent Date: {i.rentDate}\n""")
-                input("Press enter to return to main menu")
-                PlayerMenu(self.member.username)
         else:
             print("You have not rented any equipment.")
             input("Press enter to return to main menu")
             PlayerMenu(self.member.username)
+        
+        input("Press enter to return to main menu")
+        PlayerMenu(self.member.username)
 
     def return_equipment(self):
         self.show_my_rentals()
