@@ -1,6 +1,7 @@
 from entity_instances.reservation_in import ReservationIn
 from create_tables import CREATE_RESERVATION_TABLE
 from insert_tables import INSERT_RESERVATION
+from select_tables import SELECT_RESERVATION_EXISTS
 
 
 class Reservation:
@@ -13,4 +14,6 @@ class Reservation:
         with self.connection:
             self.cursor.execute(INSERT_RESERVATION, (reservation.playerid, reservation.fieldID, reservation.date, reservation.startTime, reservation.endTime, reservation.lessonID, reservation.coachID))
 
-    
+    def check_reservation_exists(self, fieldID, date, startTime, endTime):
+        self.cursor.execute(SELECT_RESERVATION_EXISTS, (fieldID, date, startTime, endTime))
+        return self.cursor.fetchone() is not None

@@ -151,16 +151,16 @@ class PlayerMenu:
         playerid = player_functions.get_player_id(self.member.username)
         lessonid = None
         coachid = None
-        print("AAAAAAA", playerid)
 
-        #reservation = ReservationIn(playerid, fieldid, date, starttime, endtime, lessonid, coachid)
-        
-
-        reservation = ReservationIn(playerid=playerid, fieldID=fieldid, date=date, startTime=starttime, endTime=endtime, lessonID=lessonid, coachID=coachid)
-        reservation_functions.add_reservation(reservation)
-        print("Reservation made successfully.\n")
-        PlayerMenu(self.member.username)
-
+        if (reservation_functions.check_reservation_exists(fieldid, date, starttime, endtime)):
+            input("This field is already reserved on this date and time. Press enter to make the reservation again.")
+            self.make_reservation()    
+        else:     
+            reservation = ReservationIn(playerid=playerid, fieldID=fieldid, date=date, startTime=starttime, endTime=endtime, lessonID=lessonid, coachID=coachid)
+            reservation_functions.add_reservation(reservation)
+            print("Reservation made successfully.\n")
+            input("Press enter to return to main menu")
+            PlayerMenu(self.member.username)
         
 
     def participate_lesson(self):
