@@ -1,8 +1,9 @@
-from __init__ import tournament_functions, equipment_functions, field_functions, lesson_functions
+from __init__ import tournament_functions, equipment_functions, field_functions, lesson_functions, reservation_functions
 from entity_instances.tournament_in import TournamentIn
 from entity_instances.equipment_in import EquipmentIn
 from entity_instances.field_in import FieldIn
 from entity_instances.lesson_in import LessonIn
+from entity_instances.reservation_in import ReservationIn
 
 
 class AdminLogin:
@@ -96,4 +97,6 @@ class AdminLogin:
 
         )
         lesson_functions.add_lesson(lesson)
+        lessonid = lesson_functions.get_lesson_id(fieldid, date, starttime, endtime, coachid)
+        reservation_functions.add_reservation(ReservationIn(playerid=None, fieldID=fieldid, date=date, startTime=starttime, endTime=endtime, lessonID=lessonid, coachID=coachid))
         print(f"Lesson added successfully!")

@@ -1,7 +1,7 @@
 from entity_instances.lesson_in import LessonIn
 from create_tables import CREATE_LESSON_TABLE
 from insert_tables import INSERT_LESSON
-from select_tables import SELECT_LESSONS, SELECT_ALL_LESSONS
+from select_tables import SELECT_LESSONS, SELECT_ALL_LESSONS, SELECT_LESSONID
 
 
 class Lesson:
@@ -41,5 +41,16 @@ class Lesson:
                   Field: {lesson[5]}
                   Coach: {lesson[6]}
                   """)   
-
+            
+    
+    def get_lesson_id(self, fieldid, date, starttime, endtime, coachid):
+        self.fieldid = fieldid
+        self.date = date
+        self.starttime = starttime
+        self.endtime = endtime
+        self.coachid = coachid
+        self.cursor.execute(SELECT_LESSONID, (self.fieldid, self.date, self.starttime, self.endtime, self.coachid))
+        self.lessonid = self.cursor.fetchone()[0]
+        return self.lessonid
+    
     
