@@ -53,8 +53,8 @@ class PlayerMenu:
                 print("Logout")
                 self.logout()
             case 10:
-                print("Exit")
-                self.exit()
+                print("Exiting...")
+                exit()
             case _:
                 print("Invalid choice. Please try again.")
                 PlayerMenu(self.member.username)
@@ -67,15 +67,19 @@ class PlayerMenu:
                     return player_choice
                 else:
                     print("Invalid choice. Please try again.")
-                    PlayerMenu(self.username)
+                    PlayerMenu(self.member.username)
             except ValueError:
                 print("Invalid input. Please enter a number.")
-                PlayerMenu(self.username)
+                PlayerMenu(self.member.username)
 
     def participate_tournament(self):
         # Implement the logic for participating in a tournament
         tournament_functions.display_tournaments()
-        tournament_id = int(input("Enter the ID of the tournament you wish to participate in: "))
+        try:
+            tournament_id = int(input("Enter the ID of the tournament you wish to participate in: "))
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+            PlayerMenu(self.member.username)
         tournament_par = TournamentParIn(self.member.id, tournament_id)
         if tournamentpar_functions.check_participation(tournament_par):
             print("You have already registered for this tournament.")
@@ -124,8 +128,12 @@ class PlayerMenu:
             for i in my_rentals:
                 equipment = equipment_functions.return_equipment_from_id(i.equipmentID)
                 print(f"""ID: {equipment.id}\nDescription: {equipment.description}\nCharacteristic Code: {equipment.characteristicCode}\nRent Date: {i.rentDate}\n""")
+                input("Press enter to return to main menu")
+                PlayerMenu(self.member.username)
         else:
             print("You have not rented any equipment.")
+            input("Press enter to return to main menu")
+            PlayerMenu(self.member.username)
 
     def return_equipment(self):
         self.show_my_rentals()
@@ -150,6 +158,7 @@ class PlayerMenu:
         reservation = ReservationIn(playerid=playerid, fieldID=fieldid, date=date, startTime=starttime, endTime=endtime, lessonID=lessonid, coachID=coachid)
         reservation_functions.add_reservation(reservation)
         print("Reservation made successfully.\n")
+        PlayerMenu(self.member.username)
 
         
 
