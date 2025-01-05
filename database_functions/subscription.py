@@ -11,6 +11,4 @@ class Subscription:
 
     def add_subscription(self, subscription: SubscriptionIn):
         with self.connection:
-            self.cursor.execute(INSERT_SUBSCRIPTION, (subscription.id, subscription.startDate, subscription.endDate, subscription.type, subscription.category, subscription.status))
-
-    
+            self.cursor.execute(INSERT_SUBSCRIPTION, (subscription.startDate, subscription.endDate, subscription.type, subscription.category, subscription.status))

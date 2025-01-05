@@ -72,18 +72,25 @@ class LoginMenu:
                 type1 = input("Enter the type of subscription: \n1. Monthly\n2. 6 months\n3. Yearly\n")
                 if type1 == "1":
                     type = "Monthly"
-                    enddate = date.today() + timedelta(days=30)
+                    end = date.today() + timedelta(days=30)
+                    enddate = end.strftime("%d/%m/%Y")
                 elif type1 == "2":
                     type = "6 months"
-                    enddate = date.today() + timedelta(days=180)
+                    end = date.today() + timedelta(days=180)
+                    enddate = end.strftime("%d/%m/%Y")
                 elif type1 == "3": 
                     type = "Yearly"
-                    enddate = date.today() + timedelta(days=365)
+                    end = date.today() + timedelta(days=365)
+                    enddate = end.strftime("%d/%m/%Y")
                 input("Press Enter to confirm subscription.")
+                print(enddate)
                 status = "Active"
+                print(status)
                 category = "player"
+                print(category)
                 sub = SubscriptionIn(startdate, enddate, type, category, status)   
-                subscription_functions.add_subscription(sub)       
+                subscription_functions.add_subscription(sub)      
+                print("You have successfully subscribed.") 
         else:
             print("Invalid username or password. Please try again.")
             LoginMenu()

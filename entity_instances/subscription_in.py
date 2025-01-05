@@ -3,14 +3,14 @@ from datetime import date
 class SubscriptionIn:
     def __init__(
         self,
-        id	= None,
+        #id	= None,
         startDate = None,
         endDate = None,
         type = None,
         category = None,
         status = None,
     ):
-        self.id= id
+        #self.id= id
         self.startDate = startDate
         self.endDate = endDate
         self.type = type
