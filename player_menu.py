@@ -144,9 +144,11 @@ class PlayerMenu:
         coachid = None
         print("AAAAAAA", playerid)
 
-        reservation = ReservationIn(playerid, fieldid, date, starttime, endtime, lessonid, coachid)
-        reservation_functions.add_reservation(reservation)
+        #reservation = ReservationIn(playerid, fieldid, date, starttime, endtime, lessonid, coachid)
+        
 
+        reservation = ReservationIn(playerid=playerid, fieldID=fieldid, date=date, startTime=starttime, endTime=endtime, lessonID=lessonid, coachID=coachid)
+        reservation_functions.add_reservation(reservation)
         print("Reservation made successfully.\n")
 
         
