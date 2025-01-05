@@ -3,7 +3,7 @@ from user_signup import SignUp
 from coach_login import CoachLogin
 from coach_menu import CoachMenu
 from player_menu import PlayerMenu
-from __init__ import player_functions, playersub_functions, subscription_functions
+from __init__ import player_functions, subscription_functions
 from entity_instances.subscription_in import SubscriptionIn
 from datetime import date, timedelta
 

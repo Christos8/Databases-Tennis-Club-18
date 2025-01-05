@@ -13,6 +13,7 @@ class LessonIn:
         endTime = None,
         difficulty = None,
         coachID = None,
+        fieldid = None,
     ):
         self.id = id
         self.date = date
@@ -20,5 +21,6 @@ class LessonIn:
         self.endTime = endTime
         self.difficulty = difficulty
         self.coachID = coachID
+        self.fieldid = fieldid
         
 

@@ -11,6 +11,6 @@ class Reservation:
 
     def add_reservation(self, reservation: ReservationIn):
         with self.connection:
-            self.cursor.execute(INSERT_RESERVATION, (reservation.id, reservation.fieldID, reservation.startTime, reservation.endTime, reservation.lessonID, reservation.coachID))
+            self.cursor.execute(INSERT_RESERVATION, (reservation.playerid, reservation.fieldID, reservation.date, reservation.startTime, reservation.endTime, reservation.lessonID, reservation.coachID))
 
     

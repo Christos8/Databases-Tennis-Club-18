@@ -1,7 +1,7 @@
 from datetime import date
 from select_tables import SELECT_PROFILE, SELECT_RESERVATION
 from update_tables import UPDATE_RESERVATION
-from __init__ import member_functions,equipment_functions,equipment_rental_functions, reservation_functions, lesson_functions, lessonpar_functions, tournament_functions, tournamentpar_functions
+from __init__ import member_functions,equipment_functions,equipment_rental_functions, reservation_functions, lesson_functions, lessonpar_functions, tournament_functions, tournamentpar_functions, player_functions
 from entity_instances.reservation_in import ReservationIn
 from entity_instances.tournament_par_in import TournamentParIn
 from entity_instances.equipment_rental_in import EquipmentRentalIn
@@ -135,16 +135,18 @@ class PlayerMenu:
         equipment_rental_functions.delete_equipment_rental(self.member.id, equipment_id)
 
     def make_reservation(self):
-        fieldid = input("Enter the number of the court you would like to book: \n1. Court 1: Grass\n2. Court 2: Clay\n3. Court 3: Hard\n4. Court 4: Hard")
-        starttime = input("Enter the starting time: ")
-        endtime = input("Enter the ending time: ")
+        fieldid = input("Enter the number of the court you would like to book: \n1. Court 1: Grass\n2. Court 2: Clay\n3. Court 3: Hard\n4. Court 4: Hard\n")
+        date = input("Enter the date of the reservation: DD/MM/YYYY\n")
+        starttime = input("Enter the starting time: HH:MM\n")
+        endtime = input("Enter the ending time: HH:MM\n")
+        playerid = player_functions.get_player_id(self.member.username)
         lessonid = None
         coachid = None
 
-        reservation = ReservationIn(fieldid, starttime, endtime, lessonid, coachid)
+        reservation = ReservationIn(playerid, fieldid, date, starttime, endtime, lessonid, coachid)
         reservation_functions.add_reservation(reservation)
 
-        print("Reservation made successfully.")
+        print("Reservation made successfully.\n")
 
         
 

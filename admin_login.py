@@ -1,7 +1,8 @@
-from __init__ import tournament_functions, equipment_functions, field_functions
+from __init__ import tournament_functions, equipment_functions, field_functions, lesson_functions
 from entity_instances.tournament_in import TournamentIn
 from entity_instances.equipment_in import EquipmentIn
 from entity_instances.field_in import FieldIn
+from entity_instances.lesson_in import LessonIn
 
 
 class AdminLogin:
@@ -15,7 +16,8 @@ class AdminLogin:
             print("1. Create Tournament")
             print("2. Add Equipment")
             print("3. Add Court")
-            print("4. Logout")
+            print("4. Add Lesson")
+            print("5. Logout")
             choice = int(input("Enter your choice: "))
             self.handle_choice(choice)
 
@@ -28,6 +30,8 @@ class AdminLogin:
             case 3:
                 self.add_field()
             case 4:
+                self.add_lesson()
+            case 5:
                 print("Logging out...")
                 exit()
 
@@ -71,3 +75,25 @@ class AdminLogin:
         status = 1
         )
         field_functions.add_field(field)
+
+    def add_lesson(self):
+        date = input("Enter lesson date DD/MM/YYYY: ")
+        starttime = input("Enter lesson start time HH:MM: \n")
+        endtime = input("Enter lesson end time HH:MM: \n")
+        difficulty = input("Enter lesson difficulty (Begginers, Intermediates, Professionals): \n")
+        fieldid = input("Enter the field the lesson is going to take place: \n1. Court 1: Grass\n2. Court 2: Hard\n3. Court 3: Clay\n4. Court 4: Hard\n")
+        coachid = input("Enter the coach ID: \n")
+        
+
+        lesson = LessonIn(
+        id= None,
+        date= date,
+        startTime= starttime,
+        endTime= endtime,
+        difficulty= difficulty,
+        fieldid= fieldid,
+        coachID= coachid
+
+        )
+        lesson_functions.add_lesson(lesson)
+        print(f"Lesson added successfully!")

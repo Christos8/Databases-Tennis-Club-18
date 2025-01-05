@@ -24,7 +24,7 @@ class Lesson:
     
     def add_lesson(self, lesson: LessonIn):
         with self.connection:
-            self.cursor.execute(INSERT_LESSON, (lesson.id, lesson.date, lesson.startTime, lesson.endTime, lesson.difficulty, lesson.coachID))
+            self.cursor.execute(INSERT_LESSON, (lesson.date, lesson.startTime, lesson.endTime, lesson.difficulty, lesson.coachID, lesson.fieldid))
 
     
     def display_lessons(self):
@@ -38,7 +38,8 @@ class Lesson:
                   Starting Time: {lesson[2]}
                   Ending Time: {lesson[3]}
                   Difficulty: {lesson[4]}
-                  Coach: {lesson[5]}
+                  Field: {lesson[5]}
+                  Coach: {lesson[6]}
                   """)   
 
     
