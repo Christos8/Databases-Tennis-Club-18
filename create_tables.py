@@ -63,7 +63,9 @@ CREATE TABLE IF NOT EXISTS SUBSCRIPTION (
     enddate DATE,
     type TEXT,
     category TEXT,
-    status BOOLEAN
+    status BOOLEAN,
+    playerid INTEGER NOT NULL,
+    FOREIGN KEY (playerid) REFERENCES PLAYER(memberid)
 );
 """
 

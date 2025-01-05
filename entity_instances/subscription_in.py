@@ -9,6 +9,7 @@ class SubscriptionIn:
         type = None,
         category = None,
         status = None,
+        playerID = None
     ):
         #self.id= id
         self.startDate = startDate
@@ -16,6 +17,7 @@ class SubscriptionIn:
         self.type = type
         self.category = category
         self.status = status #or self.set_status()
+        self.playerID = playerID
 
 
     # def set_status(self):

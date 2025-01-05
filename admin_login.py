@@ -32,10 +32,10 @@ class AdminLogin:
                 exit()
 
     def create_tournament(self):
-        deadline = input("Enter tournament deadline: ")
+        deadline = input("Enter tournament deadline DD/MM/YYYY: ")
         fee = input("Enter tournament fee: ")
         prize = input("Enter tournament prize: ")
-        date = input("Enter tournament date: ")
+        date = input("Enter tournament date DD/MM/YYYY: ")
         sTime = input("Enter tournament start time: ")
 
         tournament = TournamentIn(

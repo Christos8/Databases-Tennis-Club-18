@@ -61,7 +61,8 @@ class LoginMenu:
         if user_login.login():
             print("\nWelcome to the tennis club!")
             player_id = player_functions.get_player_id(username)
-            check_sub = playersub_functions.check_subscription(player_id)
+            print(player_id)
+            check_sub = subscription_functions.check_subscription(player_id)
             if check_sub:
                 print("You have an active subscription.")
                 PlayerMenu(username)
@@ -88,7 +89,7 @@ class LoginMenu:
                 print(status)
                 category = "player"
                 print(category)
-                sub = SubscriptionIn(startdate, enddate, type, category, status)   
+                sub = SubscriptionIn(startdate, enddate, type, category, status, player_id)   
                 subscription_functions.add_subscription(sub)      
                 print("You have successfully subscribed.") 
         else:
