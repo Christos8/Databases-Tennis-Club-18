@@ -20,3 +20,5 @@ SELECT_ACTIVE_SUBSCRIPTION = "SELECT * FROM SUBSCRIPTION WHERE playerid = (?)"
 SELECT_PLAYERID = "SELECT id FROM MEMBER WHERE username = (?)"
 SELECT_LESSONID = "SELECT id FROM LESSON WHERE fieldid = (?) AND date = (?) AND startTime = (?) AND endTime = (?) AND coachid = (?)"
 SELECT_RESERVATION_EXISTS = "SELECT * FROM RESERVATION WHERE fieldID = (?) AND date = (?) AND startTime = (?) AND endTime = (?)"
+SELECT_RESERVATIONS_BY_MONTH = "SELECT *FROM reservation WHERE substr(date, 4, 2) = (?)";
+SELECT_RESERVATIONS_BY_DATE = "SELECT *FROM reservation WHERE date = (?)";

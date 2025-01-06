@@ -1,3 +1,4 @@
+from datetime import datetime
 from __init__ import tournament_functions, equipment_functions, field_functions, lesson_functions, reservation_functions
 from entity_instances.tournament_in import TournamentIn
 from entity_instances.equipment_in import EquipmentIn
@@ -18,7 +19,8 @@ class AdminLogin:
             print("2. Add Equipment")
             print("3. Add Court")
             print("4. Add Lesson")
-            print("5. Logout")
+            print("5. Show this month's reservations")
+            print("6. Logout")
             choice = int(input("Enter your choice: "))
             self.handle_choice(choice)
 
@@ -26,15 +28,22 @@ class AdminLogin:
         match choice:
             case 1:
                 self.create_tournament()
+                AdminLogin().admin_menu()
             case 2:
                 self.add_equipment()
+                AdminLogin().admin_menu()
             case 3:
                 self.add_field()
+                AdminLogin().admin_menu()
             case 4:
                 self.add_lesson()
+                AdminLogin().admin_menu()
             case 5:
+                self.show_reservations()
+                AdminLogin().admin_menu()
+            case 6:
                 print("Logging out...")
-                exit()
+                self.logout()
 
     def create_tournament(self):
         deadline = input("Enter tournament deadline DD/MM/YYYY: ")
@@ -100,3 +109,16 @@ class AdminLogin:
         lessonid = lesson_functions.get_lesson_id(fieldid, date, starttime, endtime, coachid)
         reservation_functions.add_reservation(ReservationIn(playerid=None, fieldID=fieldid, date=date, startTime=starttime, endTime=endtime, lessonID=lessonid, coachID=coachid))
         print(f"Lesson added successfully!")
+
+
+    def show_reservations(self):
+        current_month = datetime.today().strftime("%m")
+        reservations = reservation_functions.get_reservations_by_month(current_month)
+        for reservation in reservations:
+            print(f"Reservation ID: {reservation.id}\nField ID: {reservation.fieldID}\nDate: {reservation.date}\nStart Time: {reservation.startTime}\nEnd Time: {reservation.endTime}\nLesson ID: {reservation.lessonID}\nCoach ID: {reservation.coachID}\n")
+        input("Press enter to return to main menu")
+        self.admin_menu()
+    
+    def logout(self):
+        from login_menu import LoginMenu
+        LoginMenu()
