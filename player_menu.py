@@ -37,6 +37,8 @@ class PlayerMenu:
             case 3:
                 print("Rent equipment\n")
                 self.rent_equipment()
+                input("Press enter to return to main menu")
+                PlayerMenu(self.member.username)
             case 4:
                 print("Show my rentals\n")
                 self.show_my_rentals()
