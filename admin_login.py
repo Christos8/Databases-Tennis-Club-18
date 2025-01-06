@@ -112,11 +112,12 @@ class AdminLogin:
 
 
     def show_reservations(self):
-        current_month = datetime.today().strftime("%m")
-        reservations = reservation_functions.get_reservations_by_month("01")
+        month = int(input("Enter the month you want to see the reservations for: \n"))
+        formatted_month = f"{month:02d}"
+        reservations = reservation_functions.get_reservations_by_month(formatted_month)
         if reservations:
             for reservation in reservations:
-                print(f"Reservation ID: {reservation.id}\nField ID: {reservation.fieldID}\nDate: {reservation.date}\nStart Time: {reservation.startTime}\nEnd Time: {reservation.endTime}\nLesson ID: {reservation.lessonID}\nCoach ID: {reservation.coachID}\n")
+                print(f"\nReservation ID: {reservation.id}\nField ID: {reservation.fieldID}\nDate: {reservation.date}\nStart Time: {reservation.startTime}\nEnd Time: {reservation.endTime}\nLesson ID: {reservation.lessonID}\nCoach ID: {reservation.coachID}\n")
         else: 
             print("No reservations for this month.")
         input("Press enter to return to main menu")
