@@ -19,41 +19,51 @@ class PlayerMenu:
         self.handle_player_choice(player_choice)
 
     def player_display(self):
-        print("Choose what you wish to do!\n")
+        print("\nChoose what you wish to do!\n")
         for i, player_option in enumerate(self.player_options, 1):
             print(f"{i}. {player_option}")
 
     def handle_player_choice(self, player_choice):
         match player_choice:
             case 1:
-                print("Participate in a tournament")
+                print("Participate in a tournament\n")
                 self.participate_tournament()
+                PlayerMenu(self.member.username)
             case 2:
-                print("Show my tournaments")
+                print("Show my tournaments\n")
                 self.show_my_tournaments()
+                input("Press enter to return to main menu")
+                PlayerMenu(self.member.username)
             case 3:
-                print("Rent equipment")
+                print("Rent equipment\n")
                 self.rent_equipment()
             case 4:
-                print("Show my rentals")
+                print("Show my rentals\n")
                 self.show_my_rentals()
+                input("Press enter to return to main menu")
+                PlayerMenu(self.member.username)
             case 5:
-                print("Return equipment")
+                print("Return equipment\n")
                 self.return_equipment()
+                PlayerMenu(self.member.username)
             case 6:
-                print("Make a court reservation")
+                print("Make a court reservation\n")
                 self.make_reservation()
+                PlayerMenu(self.member.username)
             case 7:
-                print("Participate in a lesson")
+                print("Participate in a lesson\n")
                 self.participate_lesson()
+                PlayerMenu(self.member.username)
             case 8:
-                print("View profile")
+                print("View profile\n")
                 self.view_profile()
+                input("Press enter to return to main menu")
+                PlayerMenu(self.member.username)                
             case 9:
-                print("Logout")
+                print("Logout\n")
                 self.logout()
             case 10:
-                print("Exiting...")
+                print("Exiting...\n")
                 exit()
             case _:
                 print("Invalid choice. Please try again.")
@@ -86,7 +96,6 @@ class PlayerMenu:
         else:
             tournamentpar_functions.add_tournament_par(tournament_par)
             print("You have successfully registered for the tournament.")
-        PlayerMenu(self.member.username)
 
     def show_my_tournaments(self):
         # Implement the logic for showing the tournaments that the player has registered for
@@ -98,8 +107,6 @@ class PlayerMenu:
                 print(f"Deadline: {tournament.deadline}\nFee: {tournament.fee}\nPrize: {tournament.prize}\nDate: {tournament.date}\nStart Time: {tournament.sTime}\n")
         else:
             print("You have not registered for any tournaments.")
-        input("Press enter to return to main menu")
-        PlayerMenu(self.member.username)
 
     def rent_equipment(self):
         equipment_functions.display_equipment()
@@ -117,8 +124,6 @@ class PlayerMenu:
                 print("Equipment is not available.")
         else:
             print("Equipment not found.")
-        input("Press enter to return to main menu")
-        PlayerMenu(self.member.username)
 
     def show_my_rentals(self):
         my_rentals = equipment_rental_functions.get_user_rentals(self.member.id)
@@ -130,18 +135,14 @@ class PlayerMenu:
                 print(f"""ID: {equipment.id}\nDescription: {equipment.description}\nCharacteristic Code: {equipment.characteristicCode}\nRent Date: {i.rentDate}\n""")
         else:
             print("You have not rented any equipment.")
-            input("Press enter to return to main menu")
-            PlayerMenu(self.member.username)
         
-        input("Press enter to return to main menu")
-        PlayerMenu(self.member.username)
 
     def return_equipment(self):
         self.show_my_rentals()
         equipment_id = int(input("Enter the ID of the equipment you wish to return: "))
-        equipment = equipment_functions.return_equipment_from_id(equipment_id)
         equipment_functions.update_equipment_availability(equipment_id, 1)
         equipment_rental_functions.delete_equipment_rental(self.member.id, equipment_id)
+        input("Equipment returned successfully!\n")
 
     def make_reservation(self):
         fieldid = input("Enter the number of the court you would like to book: \n1. Court 1: Grass\n2. Court 2: Clay\n3. Court 3: Hard\n4. Court 4: Hard\n")
@@ -160,7 +161,6 @@ class PlayerMenu:
             reservation_functions.add_reservation(reservation)
             print("Reservation made successfully.\n")
             input("Press enter to return to main menu")
-            PlayerMenu(self.member.username)
         
 
     def participate_lesson(self):
@@ -173,7 +173,7 @@ class PlayerMenu:
         else:
             lessonpar_functions.add_lesson_par(lesson_par)
             print("You have successfully registered for the lesson.")
-        PlayerMenu(self.member.username)
+        
 
 
     def view_profile(self):
@@ -186,8 +186,6 @@ class PlayerMenu:
             print(f"Address: {self.member.address}")
             print(f"Email: {self.member.email}")
             print(f"Category: {self.member.category}")
-            input("Press enter to return to main menu")
-            PlayerMenu(self.member.username)
         else:
             print("Profile not found.")
     
