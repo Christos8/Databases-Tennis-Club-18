@@ -2,7 +2,7 @@ CREATE_USER_AUTH_TABLE = """
 CREATE TABLE IF NOT EXISTS USER_AUTH (
     username TEXT NOT NULL PRIMARY KEY,
     password TEXT NOT NULL,
-    FOREIGN KEY (username) REFERENCES MEMBER(username)
+    FOREIGN KEY (username) REFERENCES MEMBER(username) ON DELETE CASCADE
 );
 """
 
@@ -24,14 +24,14 @@ CREATE_PLAYER_TABLE = """
 CREATE TABLE IF NOT EXISTS PLAYER (
     memberid INTEGER NOT NULL,
     PRIMARY KEY (memberid),
-    FOREIGN KEY (memberid) REFERENCES MEMBER(id)
+    FOREIGN KEY (memberid) REFERENCES MEMBER(id) ON DELETE CASCADE
 );
 """
 
 CREATE_COACH_TABLE = """
 CREATE TABLE IF NOT EXISTS COACH (
     memberid INTEGER NOT NULL PRIMARY KEY,
-    FOREIGN KEY (memberid) REFERENCES MEMBER(id)
+    FOREIGN KEY (memberid) REFERENCES MEMBER(id) ON DELETE CASCADE
 );
 """
 
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS TOURNAMENT_PARTICIPATION (
     playerid INTEGER NOT NULL,
     tournamentid INTEGER NOT NULL,
     PRIMARY KEY (playerid, tournamentid),
-    FOREIGN KEY (playerid) REFERENCES PLAYER(memberid),
+    FOREIGN KEY (playerid) REFERENCES PLAYER(memberid) ON DELETE CASCADE,
     FOREIGN KEY (tournamentid) REFERENCES TOURNAMENT(id)
 );
 """
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS SUBSCRIPTION (
     category TEXT,
     status BOOLEAN,
     playerid INTEGER NOT NULL,
-    FOREIGN KEY (playerid) REFERENCES PLAYER(memberid)
+    FOREIGN KEY (playerid) REFERENCES PLAYER(memberid) ON DELETE CASCADE
 );
 """
 
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS EQUIPMENT_RENTAL (
     equipmentid INTEGER NOT NULL,
     rentdate DATE,
     PRIMARY KEY (playerid, equipmentid),
-    FOREIGN KEY (playerid) REFERENCES PLAYER(memberid),
+    FOREIGN KEY (playerid) REFERENCES PLAYER(memberid) ON DELETE CASCADE,
     FOREIGN KEY (equipmentid) REFERENCES EQUIPMENT(id)
 );
 """
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS LESSON_PARTICIPATION (
     playerid INTEGER NOT NULL,
     lessonid INTEGER NOT NULL,
     PRIMARY KEY (playerid, lessonid),
-    FOREIGN KEY (playerid) REFERENCES PLAYER(memberid),
+    FOREIGN KEY (playerid) REFERENCES PLAYER(memberid) ON DELETE CASCADE,
     FOREIGN KEY (lessonid) REFERENCES LESSON(id)
 );
 """
@@ -118,15 +118,15 @@ CREATE TABLE IF NOT EXISTS RESERVATION (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     playerid INTEGER,
     fieldid INTEGER,
-    date TEXT,
+    date DATE,
     starttime TIME,
     endtime TIME,
     lessonid INTEGER,
     coachid INTEGER,
-    FOREIGN KEY (playerid) REFERENCES PLAYER(memberid),
+    FOREIGN KEY (playerid) REFERENCES PLAYER(memberid) ON DELETE CASCADE,
     FOREIGN KEY (fieldid) REFERENCES FIELD(id),
     FOREIGN KEY (lessonid) REFERENCES LESSON(id),
-    FOREIGN KEY (coachid) REFERENCES COACH(memberid)
+    FOREIGN KEY (coachid) REFERENCES COACH(memberid) 
 );
 """
 
