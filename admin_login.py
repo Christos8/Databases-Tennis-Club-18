@@ -113,7 +113,7 @@ class AdminLogin:
 
     def show_reservations(self):
         current_month = datetime.today().strftime("%m")
-        reservations = reservation_functions.get_reservations_by_month("06")
+        reservations = reservation_functions.get_reservations_by_month("01")
         if reservations:
             for reservation in reservations:
                 print(f"Reservation ID: {reservation.id}\nField ID: {reservation.fieldID}\nDate: {reservation.date}\nStart Time: {reservation.startTime}\nEnd Time: {reservation.endTime}\nLesson ID: {reservation.lessonID}\nCoach ID: {reservation.coachID}\n")
