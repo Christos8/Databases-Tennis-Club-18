@@ -1,12 +1,13 @@
 from select_tables import SELECT_LESSONS, SELECT_COACHID, SELECT_RESERVATION
 from update_tables import UPDATE_RESERVATION
-from __init__ import coach_functions, lesson_functions
+from __init__ import coach_functions, lesson_functions, member_functions
 
 class CoachMenu:
 
     def __init__(self, username):
+        self.member = member_functions.return_member(username)
         self.username = username
-        self.coach_options = ["Participate on a court reservation", "See your lessons", "logout", "Exit"]
+        self.coach_options = ["Participate on a court reservation", "See your lessons", "View profile", "logout", "Exit"]
         self.coach_display()
         coach_choice = self.get_coach_choice()
         self.handle_coach_choice(coach_choice)
@@ -26,9 +27,14 @@ class CoachMenu:
                 print("My lessons:\n")
                 self.lessons()
             case 3:
+                print("View profile")
+                self.view_profile()
+                input("Press enter to return to main menu")
+                CoachMenu(self.username)
+            case 4:
                 print("Logging out...")
                 self.logout()
-            case 4:
+            case 5:
                 print("Exiting...")
                 exit()
 
@@ -67,7 +73,18 @@ class CoachMenu:
         input("Press enter to return to main menu")
         CoachMenu(self.username)
 
-   
+    def view_profile(self):
+        if self.member:
+            print(f"Profile details for user {self.member.username}:\n")
+            print(f"Name: {self.member.name}")
+            print(f"Surname: {self.member.surname}")
+            print(f"Birthdate: {self.member.birthdate}")
+            print(f"Phone: {self.member.phone}")
+            print(f"Address: {self.member.address}")
+            print(f"Email: {self.member.email}")
+            print(f"Category: {self.member.category}")
+        else:
+            print("Profile not found.")
 
     def logout(self):
         from login_menu import LoginMenu
