@@ -47,6 +47,7 @@ class PlayerMenu:
             case 5:
                 print("Return equipment\n")
                 self.return_equipment()
+                input("Press enter to return to main menu")
                 PlayerMenu(self.member.username)
             case 6:
                 print("Make a court reservation\n")
@@ -135,16 +136,18 @@ class PlayerMenu:
             for i in my_rentals:
                 equipment = equipment_functions.return_equipment_from_id(i.equipmentID)
                 print(f"""ID: {equipment.id}\nDescription: {equipment.description}\nCharacteristic Code: {equipment.characteristicCode}\nRent Date: {i.rentDate}\n""")
+            return True
         else:
             print("You have not rented any equipment.")
+            return False
         
 
     def return_equipment(self):
-        self.show_my_rentals()
-        equipment_id = int(input("Enter the ID of the equipment you wish to return: "))
-        equipment_functions.update_equipment_availability(equipment_id, 1)
-        equipment_rental_functions.delete_equipment_rental(self.member.id, equipment_id)
-        input("Equipment returned successfully!\n")
+        if self.show_my_rentals():
+            equipment_id = int(input("Enter the ID of the equipment you wish to return: "))
+            equipment_functions.update_equipment_availability(equipment_id, 1)
+            equipment_rental_functions.delete_equipment_rental(self.member.id, equipment_id)
+            print("Equipment returned successfully!\n")
 
     def make_reservation(self):
         fieldid = input("Enter the number of the court you would like to book: \n1. Court 1: Grass\n2. Court 2: Clay\n3. Court 3: Hard\n4. Court 4: Hard\n")
