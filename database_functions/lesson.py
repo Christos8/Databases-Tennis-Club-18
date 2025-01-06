@@ -1,7 +1,7 @@
 from entity_instances.lesson_in import LessonIn
 from create_tables import CREATE_LESSON_TABLE
 from insert_tables import INSERT_LESSON
-from select_tables import SELECT_LESSONS, SELECT_ALL_LESSONS, SELECT_LESSONID
+from select_tables import SELECT_LESSONS, SELECT_ALL_LESSONS, SELECT_LESSONID, SELECT_LESSON_FROM_ID
 
 
 class Lesson:
@@ -53,4 +53,7 @@ class Lesson:
         self.lessonid = self.cursor.fetchone()[0]
         return self.lessonid
     
-    
+    def get_lesson_from_id(self, lessonid):
+        self.cursor.execute(SELECT_LESSON_FROM_ID, (lessonid,))
+        lesson = self.cursor.fetchone()
+        return LessonIn(*lesson)

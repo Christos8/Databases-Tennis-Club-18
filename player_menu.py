@@ -1,7 +1,7 @@
 from datetime import date
 from select_tables import SELECT_PROFILE, SELECT_RESERVATION
 from update_tables import UPDATE_RESERVATION
-from __init__ import member_functions,equipment_functions,equipment_rental_functions, reservation_functions, lesson_functions, lessonpar_functions, tournament_functions, tournamentpar_functions, player_functions
+from __init__ import member_functions,equipment_functions,coach_functions, equipment_rental_functions, reservation_functions, lesson_functions, lessonpar_functions, tournament_functions, tournamentpar_functions, player_functions
 from entity_instances.reservation_in import ReservationIn
 from entity_instances.tournament_par_in import TournamentParIn
 from entity_instances.equipment_rental_in import EquipmentRentalIn
@@ -13,7 +13,8 @@ class PlayerMenu:
         self.member = member_functions.return_member(username)
         self.player_options = ["Participate in a tournament","Show my tournaments" ,
         "Rent equipment","Show my rentals", "Return equipment",
-        "Make a court reservation", "Participate in a lesson", "View profile", "logout", "Exit"]
+        "Make a court reservation", "Participate in a lesson", "View profile", "Show my reservations",
+        "Show my lessons"  ,"logout", "Exit"]
         self.player_display()
         player_choice = self.get_player_choice()
         self.handle_player_choice(player_choice)
@@ -63,9 +64,19 @@ class PlayerMenu:
                 input("Press enter to return to main menu")
                 PlayerMenu(self.member.username)                
             case 9:
+                print("Show my reservations\n")
+                self.show_my_reservations()
+                input("Press enter to return to main menu")
+                PlayerMenu(self.member.username)
+            case 10:
+                print("Show my lessons\n")
+                self.show_my_lessons()
+                input("Press enter to return to main menu")
+                PlayerMenu(self.member.username)
+            case 11:
                 print("Logout\n")
                 self.logout()
-            case 10:
+            case 12:
                 print("Exiting...\n")
                 exit()
             case _:
@@ -108,10 +119,8 @@ class PlayerMenu:
             for i in my_tournaments:
                 tournament = tournament_functions.return_tournament_from_id(i[0])
                 print(f"Deadline: {tournament.deadline}\nFee: {tournament.fee}\nPrize: {tournament.prize}\nDate: {tournament.date}\nStart Time: {tournament.sTime}\n")
-            PlayerMenu(self.member.username)
         else:
             print("You have not registered for any tournaments.")
-            PlayerMenu(self.member.username)
 
     def rent_equipment(self):
         equipment_functions.display_equipment()
@@ -125,13 +134,10 @@ class PlayerMenu:
                 equipment_rental_functions.add_equipment_rental(rental)
                 equipment_functions.update_equipment_availability(equipment_id, 0)
                 print("Equipment rented successfully.")
-                PlayerMenu(self.member.username)
             else:
                 print("Equipment is not available.")
-                PlayerMenu(self.member.username)
         else:
             print("Equipment not found.")
-            PlayerMenu(self.member.username)
 
     def show_my_rentals(self):
         my_rentals = equipment_rental_functions.get_user_rentals(self.member.id)
@@ -155,7 +161,7 @@ class PlayerMenu:
             print("Equipment returned successfully!\n")
 
     def make_reservation(self):
-        fieldid = input("Enter the number of the court you would like to book: \n1. Court 1: Grass\n2. Court 2: Hard\n3. Court 3: Clay\n4. Court 4: Grass\n")
+        fieldid = input("Enter the number of the court you would like to book: \n1. Court 1: Grass\n2. Court 2: Clay\n3. Court 3: Hard\n4. Court 4: Hard\n")
         date = input("Enter the date of the reservation: DD/MM/YYYY\n")
         starttime = input("Enter the starting time: HH:MM\n")
         endtime = input("Enter the ending time: HH:MM\n")
@@ -171,7 +177,6 @@ class PlayerMenu:
             reservation_functions.add_reservation(reservation)
             print("Reservation made successfully.\n")
             input("Press enter to return to main menu")
-            PlayerMenu(self.member.username)
         
 
     def participate_lesson(self):
@@ -181,13 +186,30 @@ class PlayerMenu:
         lesson_par = LessonParticipationIn(self.member.id, lesson_id)
         if lessonpar_functions.check_participation(lesson_par):
             print("You have already registered for this lesson.")
-            PlayerMenu(self.member.username)
         else:
             lessonpar_functions.add_lesson_par(lesson_par)
             print("You have successfully registered for the lesson.")
-            PlayerMenu(self.member.username)
         
-
+    def show_my_reservations(self):
+        my_reservations = reservation_functions.get_player_reservations(self.member.id)
+        if my_reservations:
+            print("Reservations you have made:")
+            for reservation in my_reservations:
+                print(f"Field ID: {reservation.fieldID}\nDate: {reservation.date}\nStart Time: {reservation.startTime}\nEnd Time: {reservation.endTime}\n")
+        else:
+            print("You have not made any reservations.")
+    
+    def show_my_lessons(self):
+        my_lesson_participations = lessonpar_functions.get_lesson_par_from_playerid(self.member.id)
+        if my_lesson_participations:
+            print("Lessons you have registered for:")
+            for i in my_lesson_participations:
+                lesson = lesson_functions.get_lesson_from_id(i.lessonID)
+                coach = member_functions.get_member_by_id(lesson.coachID)
+                print(f"Date: {lesson.date}\nStart Time: {lesson.startTime}\nEnd Time: {lesson.endTime}\nField ID: {lesson.fieldid}\nCoach: {coach.name}\n")
+        else:
+            print("You have not registered for any lessons.")
+    
 
     def view_profile(self):
         if self.member:
@@ -199,10 +221,8 @@ class PlayerMenu:
             print(f"Address: {self.member.address}")
             print(f"Email: {self.member.email}")
             print(f"Category: {self.member.category}")
-            PlayerMenu(self.member.username)
         else:
             print("Profile not found.")
-            PlayerMenu(self.member.username)
     
     def logout(self):
         from login_menu import LoginMenu

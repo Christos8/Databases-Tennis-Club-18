@@ -1,4 +1,5 @@
 from entity_instances.coach_in import CoachIn
+from entity_instances.member_in import MemberIn
 from create_tables import CREATE_COACH_TABLE
 from insert_tables import INSERT_COACH
 from select_tables import SELECT_COACH_ID_FROM_MEMBER_ID, SELECT_MEMBER_ID_FROM_USERNAME, SELECT_PLAYER_ID_FROM_MEMBER_ID
@@ -59,6 +60,4 @@ class Coach:
         self.cursor.execute(SELECT_COACHID, (self.username,))
         self.coachid = self.cursor.fetchone()[0]
         return self.coachid
-    
-
     
